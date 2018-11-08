@@ -19,8 +19,13 @@ int main() {
   while (true) {
     std::cout << "enter eccentricity and mean anomaly: " << std::flush;
 
-    if (not(std::cin >> ecc >> man)) {
-      std::cout << "[exit] no values provided" << std::endl;
+    if ((not(std::cin >> ecc >> man))) {
+      std::cout << "[exit] parameters not correct << std::endl";
+      return 0;
+    }
+    
+    if((ecc >= 1) or (ecc < 0)){
+        std::cout << "[exit] eccentricity is not within domain: 0 <= ecc < 1" << std::endl;
       return 0;
     }
 
