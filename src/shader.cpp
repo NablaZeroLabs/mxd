@@ -20,8 +20,11 @@
 
 namespace nzl {
 
-Shader::Shader(std::string source) : m_source(std::move(source)) {}
+Shader::Shader(Shader::Stage stage, std::string source) noexcept
+    : m_stage{stage}, m_source(std::move(source)) {}
 
-const std::string& Shader::source() const { return m_source; }
+Shader::Stage Shader::stage() const noexcept { return m_stage; }
+
+const std::string& Shader::source() const noexcept { return m_source; }
 
 }  // namespace nzl

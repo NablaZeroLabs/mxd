@@ -22,17 +22,33 @@ namespace nzl {
 /// @brief A graphics shader.
 class Shader {
  public:
+  /// @brief Stage in the rendering pipeline.
+  enum class Stage {
+    Pixel,
+    Vertex,
+    Fragment,
+    Geometry,
+    TessellationControl,
+    TessellationEvaluation,
+    Compute,
+  };
+
   /// @brief Create a Shader from the given source code.
+  /// @param stage Stage in the rendering pipeline.
   /// @param source Source code for the shader.
-  Shader(std::string source);
+  Shader(Stage stage, std::string source) noexcept;
 
   /// @TODO: What other methods are needed?
 
+  /// @brief Return the Stage in the rendering pipeline.
+  Stage stage() const noexcept;
+
   /// @brief Return the source code associated with this Shader.
-  const std::string& source() const;
+  const std::string& source() const noexcept;
 
  private:
-  std::string m_source;
+  const Stage m_stage;
+  const std::string m_source;
 };
 
 }  // namespace nzl
