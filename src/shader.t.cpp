@@ -13,11 +13,13 @@
 #include <gtest/gtest.h>
 
 // As the name implies, a unit tests tests a unit of functionality.
-TEST(Shader, SourceCodeAccess) {
+TEST(Shader, ParameterAccess) {
   std::string source = "void main() { }";
+  auto stage = nzl::Shader::Stage::Fragment;
 
-  nzl::Shader shader(source);
+  nzl::Shader shader(stage, source);
 
+  EXPECT_EQ(shader.stage(), stage);
   EXPECT_EQ(shader.source(), source);
 }
 
