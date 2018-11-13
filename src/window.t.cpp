@@ -10,17 +10,16 @@
 #include "window.hpp"
 
 // C++ Standard Library
-
-// mxd Library
+#include <stdexcept>
 
 // Google Test Framework
 #include <gtest/gtest.h>
 
-TEST( window, Failing ) {
-    ASSERT_TRUE( false ) << "You must add unit tests for window.hpp";
+TEST(Window, FailsWithoutInitializedContext) {
+  EXPECT_THROW(nzl::Window(1024, 768, "Test Window"), std::runtime_error);
 }
 
-int main( int argc, char** argv ) {
-  ::testing::InitGoogleTest( &argc, argv );
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
