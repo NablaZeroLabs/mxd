@@ -82,7 +82,8 @@ the method is broken, so I fixed it
 implement feature 3
 ```
 
-*Bad because it has a verb, but it is not imperative (should have been `Fix the bug`).
+*Bad because it has a verb, but it is not imperative (should have been `Fix the bug`)*
+
 ```
 Fixed the bug.
 ```
