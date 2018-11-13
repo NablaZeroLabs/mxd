@@ -1,5 +1,13 @@
 # `mxd` &mdash; Space Mission Design Support Tools
 
+## Dependencies needed to build `mxd`.
+
+* A C++ compiler supporting the C++17 Standard.
+* [CMake](https://cmake.org/) 3.10.0 or greater.
+* [GLFW](https://www.glfw.org/) 3.2.1 or greater.
+* [GLEW](http://glew.sourceforge.net/) 2.1.0 or greater.
+* [GLM](https://glm.g-truc.net/0.9.9/index.html) version 0.9.9.3 or greater.
+* [Google Test Framework](https://github.com/google/googletest) version 1.8.1 or greater.
 
 ## Developer Guidelines
 
@@ -55,7 +63,7 @@ Some guidelines:
 * Your commit messages should look as follows:
 
   1. The **title** of your commit will be 80 characters or less.
-  2. The *title** of your commit will be as long as it needs to be.
+  2. The **title** of your commit will be as long as it needs to be.
   3. The **title** will **always** be a single sentence that starts with an
   imperative verb.
   4. There is no period at the end of the **title**.
