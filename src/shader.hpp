@@ -34,6 +34,7 @@ class Shader {
   };
 
   /// @brief Create a Shader from the given source code.
+  /// @param stage Stage in the rendering pipeline.
   /// @param source Source code for the shader.
   Shader(Stage stage, std::string source) noexcept;
 
