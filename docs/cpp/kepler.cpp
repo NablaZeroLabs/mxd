@@ -19,8 +19,16 @@ int main() {
   while (true) {
     std::cout << "enter eccentricity and mean anomaly: " << std::flush;
 
-    if (not(std::cin >> ecc >> man)) {
-      std::cout << "[exit] no values provided" << std::endl;
+    if ((not(std::cin >> ecc >> man))) {
+      /// @TODO: How are they not correct? As a user, how would you like error
+      /// messages to be?
+      std::cout << "[exit] parameters not correct << std::endl";
+      return 0;
+    }
+
+    if ((ecc >= 1) or (ecc < 0)) {
+      std::cout << "[exit] eccentricity is not within domain: 0 <= ecc < 1"
+                << std::endl;
       return 0;
     }
 
@@ -28,10 +36,13 @@ int main() {
               << "ecc = " << std::setw(23) << ecc << "\n"
               << "man = " << std::setw(23) << man << std::endl;
 
-    double ean = mxd::kepler(ecc, man);
-    double error = ean - ecc * std::sin(ean) - man;
-
-    std::cout << "ean = " << std::setw(23) << ean << "\n"
-              << "err = " << std::setw(23) << error << std::endl;
+    try {
+      double ean = mxd::kepler(ecc, man);
+      double error = ean - ecc * std::sin(ean) - man;
+      std::cout << "ean = " << std::setw(23) << ean << "\n"
+                << "err = " << std::setw(23) << error << std::endl;
+    } catch (const std::exception& e) {
+      std::cerr << "Fatal error: " << e.what() << "\n";
+    }
   }
 }
