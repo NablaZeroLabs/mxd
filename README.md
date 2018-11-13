@@ -14,9 +14,9 @@
 `mxd` is built of components. A component is a triplet (`name.hpp`, `name.cpp`,
 `name.t.cpp`) with the following characteristics:
 
-* `name.hpp` Declares the interface for the component.
-* `name.cpp` Defines the implementation of the component.
-* `name.t.cpp` Provides unit tests for the component.
+* `name.hpp` declares the interface for the component.
+* `name.cpp` defines the implementation of the component.
+* `name.t.cpp` provides unit tests for the component.
 
 All components live under `src` in a flat arrangement (no sub-folders). In the
 future, when we understand `mxd` better, we may sub-divide `src` into
@@ -24,15 +24,15 @@ sub-directories, but not right now.
 
 Some hard rules:
 
-* `name.hpp` cannot `#include` any third-party library. Only C++ Standard
-  Library and possibly other headers from the `mxd` library.
+* `name.hpp` cannot `#include` any third-party library (only C++ Standard
+  Library and possibly other headers from the `mxd` library).
 
-* `name.cpp` will add `#include "name.hpp"` as the first line of source code.
+* `name.cpp` will `#include "name.hpp"` as the first line of source code.
 
-* `name.t.cpp` will add `#include "name.hpp"` as the first line of source code.
+* `name.t.cpp` will `#include "name.hpp"` as the first line of source code.
 
 * All tests are written using Google Test Framework and are named after the
-  component/feature they test. Additionally, they will be stand-alone (will have
+  `(Component, Feature)` tested. Additionally, they will be stand-alone (will have
   a `int main()`). For example:
 
 ```c++
@@ -58,12 +58,12 @@ Some guidelines:
 
 * We use UNIX newlines: `\n` (as opposed to Windows newlines `\r\n`). Please
   configure your Git client to clean the newlines before storing the commit
-  (Google how to do it).
+  (google how to do it).
 
 * Your commit messages should look as follows:
 
   1. The **title** of your commit will be 80 characters or less.
-  2. The **title** of your commit will be as long as it needs to be.
+  2. The **body** of your commit will be as long as it needs to be.
   3. The **title** will **always** be a single sentence that starts with an
   imperative verb.
   4. There is no period at the end of the **title**.
@@ -76,6 +76,11 @@ Implement feature 3
 
 ```
 Fix issue #112233
+```
+
+```
+Update build configuration
+The new configuration is meant to address [...]
 ```
 
 Some bad commit messages:
