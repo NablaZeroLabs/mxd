@@ -35,6 +35,9 @@ class Window {
   /// @brief Return the Window title.
   const std::string& title() const noexcept;
 
+  /// @brief Close the window.
+  void close();
+
  private:
   struct WindowImp;
   std::shared_ptr<WindowImp> m_pimpl{nullptr};
