@@ -38,6 +38,24 @@ class Window {
   /// @brief Close the window.
   void close();
 
+  /// @brief Swap the underlying buffers.
+  void swap_buffers();
+
+  /// @brief Maximize this Window.
+  void maximize();
+
+  /// @brief Minimize this Window.
+  void minimize();
+
+  /// @brief Show this Window.
+  void show();
+
+  /// @brief Hide this Window.
+  void hide();
+
+  /// @brief Make this Window the current one.
+  void make_current();
+
  private:
   struct WindowImp;
   std::shared_ptr<WindowImp> m_pimpl{nullptr};

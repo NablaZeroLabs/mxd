@@ -53,7 +53,8 @@ struct Window::WindowImp {
   }
 
   ~WindowImp() noexcept {
-    glfwSetWindowUserPointer(handle, nullptr);  // don't mess with `this`
+    glfwSetWindowUserPointer(handle,
+                             nullptr);  // don't mess with window pointer.
     glfwDestroyWindow(handle);
     handle = nullptr;
   }
@@ -64,11 +65,21 @@ struct Window::WindowImp {
     // GLEW should be initialized on every context switch
     // (cf. https://stackoverflow.com/a/35687910)
     if (auto status = glewInit(); status != GLEW_OK) {
-      std::ostringstream oss;
-      oss << "Error attempting GLEW initialization after context switch on "
-             "window \""
-          << title << "\" (@" << this << "): " << glewGetErrorString(status);
-      throw std::runtime_error(oss.str());
+      Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
+      if (window) {
+        std::ostringstream oss;
+        oss << "Error attempting GLEW initialization after context switch on "
+               "window \""
+            << title << "\" @" << window << ": " << glewGetErrorString(status);
+        throw std::runtime_error(oss.str());
+      } else {
+        std::ostringstream oss;
+        oss << "Error attempting GLEW initialization after context switch on "
+               "Window::WindowImp \""
+            << title << "\" with no associated Window pointer using handle @"
+            << handle << ": " << glewGetErrorString(status);
+        throw std::runtime_error(oss.str());
+      }
     }
   }
 
@@ -112,8 +123,8 @@ void key_callback(GLFWwindow* handle, int key, int scancode [[maybe_unused]],
     throw std::runtime_error(oss.str());
   }
 
-  // @TODO: The actual keyboard handling will be much more complex than this and
-  // probably be implemented in terms of a state machine.
+  // @TODO: The actual keyboard handling will be much more complex than this
+  // and probably be implemented in terms of a state machine.
   if (action == GLFW_PRESS) {
     switch (key) {
       case GLFW_KEY_ESCAPE:
@@ -141,5 +152,17 @@ int Window::height() const noexcept { return m_pimpl->height; }
 const std::string& Window::title() const noexcept { return m_pimpl->title; }
 
 void Window::close() {}
+
+void Window::swap_buffers() { return m_pimpl->swap_buffers(); }
+
+void Window::maximize() { return m_pimpl->set_is_maximized(true); }
+
+void Window::minimize() { return m_pimpl->set_is_maximized(false); }
+
+void Window::show() { return m_pimpl->set_is_visble(true); }
+
+void Window::hide() { return m_pimpl->set_is_visble(false); }
+
+void Window::make_current() { return m_pimpl->make_current(); }
 
 }  // namespace nzl
