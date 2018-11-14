@@ -18,13 +18,13 @@ find_package(Threads REQUIRED)
 #executables as they contain no main file,
 #and to pass to test cases
 add_library(mxd
-    "src/geometry.hpp"
-    "src/shader.hpp"
-    "src/window.hpp"
+    "geometry.hpp"
+    "shader.hpp"
+    "window.hpp"
 
-    "src/geometry.cpp"
-    "src/shader.cpp"
-    "src/window.cpp")
+    "geometry.cpp"
+    "shader.cpp"
+    "window.cpp")
 
 #Add required libraries
 target_link_libraries(mxd
@@ -57,6 +57,6 @@ endfunction(newTest)
 
 
 #Adding tests here
-newTest("shaderTest" "src/shader.t.cpp")
-newTest("geometryTest" "src/geometry.t.cpp")
-newTest("windowTest" "src/window.t.cpp")
+newTest("shaderTest" "shader.t.cpp")
+newTest("geometryTest" "geometry.t.cpp")
+newTest("windowTest" "window.t.cpp")
