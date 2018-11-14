@@ -19,6 +19,10 @@ TEST(Window, FailsWithoutInitializedContext) {
   EXPECT_THROW(nzl::Window(1024, 768, "Test Window"), std::runtime_error);
 }
 
+TEST(Window, MissingAPITests) {
+  EXPECT_TRUE(false) << "Window API is missing extensive unit tests";
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
