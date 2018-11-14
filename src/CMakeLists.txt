@@ -15,12 +15,14 @@ find_package(Threads REQUIRED)
 
 
 set(MXD_SOURCES
+  mxd.cpp
   geometry.cpp
   shader.cpp
   window.cpp
   )
 
 set(MXD_HEADERS
+  mxd.hpp
   geometry.hpp
   shader.hpp
   window.hpp
@@ -53,6 +55,7 @@ enable_testing()
 find_package(GTest REQUIRED)
 
 set(MXD_UNIT_TESTS
+  mxd.t.cpp
   shader.t.cpp
   geometry.t.cpp
   window.t.cpp
