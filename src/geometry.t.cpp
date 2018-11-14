@@ -16,11 +16,11 @@
 // Google Test Framework
 #include <gtest/gtest.h>
 
-TEST( geometry, Failing ) {
-    ASSERT_TRUE( false ) << "You must add unit tests for geometry.hpp";
+TEST(geometry, Failing) {
+  ASSERT_TRUE(false) << "You must add unit tests for geometry.hpp";
 }
 
-int main( int argc, char** argv ) {
-  ::testing::InitGoogleTest( &argc, argv );
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

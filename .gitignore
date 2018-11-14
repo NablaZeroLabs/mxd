@@ -1,0 +1,13 @@
+# Folders creating during development builds
+build/
+install/
+
+# Libraries, object, and executable files
+*.so
+*.dylib
+*.a
+*.o
+*.out
+
+# Emacs temporary files
+*~
