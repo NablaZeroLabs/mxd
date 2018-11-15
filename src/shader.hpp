@@ -24,7 +24,6 @@ class Shader {
  public:
   /// @brief Stage in the rendering pipeline.
   enum class Stage {
-    Pixel,
     Vertex,
     Fragment,
     Geometry,
@@ -36,9 +35,7 @@ class Shader {
   /// @brief Create a Shader from the given source code.
   /// @param stage Stage in the rendering pipeline.
   /// @param source Source code for the shader.
-  Shader(Stage stage, std::string source) noexcept;
-
-  /// @TODO: What other methods are needed?
+  Shader(Stage stage, std::string source);
 
   /// @brief Return the Stage in the rendering pipeline.
   Stage stage() const noexcept;
@@ -46,9 +43,17 @@ class Shader {
   /// @brief Return the source code associated with this Shader.
   const std::string& source() const noexcept;
 
+  /// @brief Return ID associated with this Shader.
+  unsigned int shaderID() const noexcept;
+
+  ~Shader();
+
  private:
+  unsigned int m_shaderID;
   const Stage m_stage;
   const std::string m_source;
+
+  void checkCompileErrors();
 };
 
 }  // namespace nzl
