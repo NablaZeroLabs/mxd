@@ -38,11 +38,12 @@ add_library(mxd
 # `find_package` (e.g., ${OPENGL_LIBRARY} is correct, but `glfw` is passing the
 # "raw" name).
 target_link_libraries(mxd
-  glfw
-  ${OPENGL_LIBRARY}
-  GLEW
-  glm
-  pthread
+  PUBLIC
+      glfw
+      ${OPENGL_LIBRARY}
+      GLEW::GLEW
+      glm
+      pthread
   )
 
 # @TODO: Add INSTALL commands. We will need to install the headers and
