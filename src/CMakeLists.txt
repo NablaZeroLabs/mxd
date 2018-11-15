@@ -40,7 +40,7 @@ add_library(mxd
 target_link_libraries(mxd
   glfw
   ${OPENGL_LIBRARY}
-  glew
+  GLEW
   glm
   pthread
   )
