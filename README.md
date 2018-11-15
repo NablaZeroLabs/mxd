@@ -107,41 +107,39 @@ of *everything we have done*.
 
 **Pull Request Guidelines**
 
-1. Create a Pull Request (PR) to add modifications and wait until code review 
-before merging. At this point, only I will be merging the PRs. In the future, 
-one of you will be able to do it. It is a good practice to have one person only 
-merge changes into master (let’s be flexible, but keeping that guideline in mind).
+1. Create a Pull Request (PR) to add modifications and wait until code review
+before merging (even if you have permission to merge in GitHub).
 
-2. Try to keep your changes small. Very small. It is way simpler to fix a small 
-PR than it is to reject an entire, large PR because some tiny thing was wrong. 
-I don’t mind if you send 20 PRs as long as I can check one by one without 
-thinking too much.
+2. Keep your changes small. Very small. It is way simpler to fix a small PR than
+it is to reject an entire, large PR because some tiny thing was wrong.  We don’t
+mind if we receive 20 PRs as long as we can check one by one without thinking
+too much.
 
-3. Add comments to the PRs in the comment section (briefly explain what problem 
-you are trying to solve and why did you solve it that way). This is not for my 
-own amusement: It is to document our rationale to all of us and future collaborators.
+3. Add comments to the PRs in the Comment Section (briefly explain what problem
+you are trying to solve and why did you solve it the way you did). This is for
+our own amusement; it is to document our collective rationale.
 
-4. Send the first thing that works, or the first placeholder that makes sense, 
-even if it has minimal or no implementation. Don’t wait until everything is 
+4. Send the first thing that works, or the first placeholder that makes sense,
+even if it has minimal or no implementation. Don’t wait until everything is
 perfect (incremental and small changes are a good thing).
 
-5. Add unit tests for mostly everything. If you added a placeholder, add a 
-failing test reminding you to add an implementation. This will allow us to run 
+5. Add unit tests for mostly everything. If you added a placeholder, add a
+failing test reminding you to add an implementation. This will allow us to run
 the tests and find out what we are missing.
 
-6. Talk. If you don’t know how to do something, or are having trouble, open a 
-conversation (in the issue section with an appropriate label). Chances are that 
-if you have trouble, someone else will also have trouble, and that conversation 
-will help those people in the future. Remember: good software is made by open 
-and frank communication, and is never a competition on who is the smartest.
+6. Talk. If you don’t know how to do something, or are having trouble, open a
+conversation (Issue Section, with an appropriate label). Chances are that if you
+have trouble, someone else will also have trouble, and that conversation will
+help those people in the future. Good software is made by open and frank
+communication, and is never a competition on who is the smartest.
 
-7. Simple code is good code. Clever code is bad code unless it is also simple. 
-Do the obvious, not necessarily the most elegant or inspired solution. We can 
-always improve on the obvious, but it is difficult to improve or maintain code 
-that someone came up with during a flash of inspiration and then forgot how it 
+7. Do the obvious, not necessarily the most elegant or inspired solution. Simple
+code is good code. Clever code is bad code unless it is also simple. We can
+always improve on the obvious, but it is difficult to improve or maintain code
+that someone came up with during a flash of inspiration and then forgot how it
 happened.
 
-8. Keep comments to a minimum: write code in a way that it speaks for itself 
-(good variable names, good function names, good flow, separate steps in separate 
-lines). This does not mean you should not document your rationale or explain a 
-tricky or non-obvious step (document that profusely).
+8. Keep comments to a minimum. Write code in a way that it speaks for itself
+(e.g., good variable names, good function names, good flow, separate steps in
+separate lines, and so on). This does not mean you should not document your
+rationale or explain a tricky or non-obvious step; document those profusely.
