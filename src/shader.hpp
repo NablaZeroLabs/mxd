@@ -37,23 +37,25 @@ class Shader {
   /// @param source Source code for the shader.
   Shader(Stage stage, std::string source);
 
+  /// @brief Destroy this Shader.
+  ~Shader() noexcept;
+
   /// @brief Return the Stage in the rendering pipeline.
   Stage stage() const noexcept;
 
   /// @brief Return the source code associated with this Shader.
   const std::string& source() const noexcept;
 
-  /// @brief Return ID associated with this Shader.
-  unsigned int shaderID() const noexcept;
+  /// @brief Return an identifier associated with this Shader.
+  unsigned int id() const noexcept;
 
-  ~Shader();
+  /// @brief Compile this Shader.
+  void compile();
 
  private:
-  unsigned int m_shaderID;
+  const unsigned int m_id;
   const Stage m_stage;
   const std::string m_source;
-
-  void checkCompileErrors();
 };
 
 }  // namespace nzl

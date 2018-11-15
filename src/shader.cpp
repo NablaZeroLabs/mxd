@@ -7,69 +7,91 @@
 /// @copyright (c) 2018 Nabla Zero Labs
 
 // Related mxd header
-#include "shader.hpp"  // ALWAYS the first include
+#include "shader.hpp"
 
 // C++ Standard Library
-#include <string>  // All C++ Standard Library includes needed to implement the class.
-
-// mxd Library
-// Any mxd headers go here.
+#include <sstream>
+#include <stdexcept>
+#include <string>
 
 // Third party libraries
 // Any third-party libraries go here.
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+namespace {  // anonymous namespace
+
+/// @brief Return the native identity that corresponds to an nzl::Stage.
+/// @note In practice, this translates between nzl::Shader::Stage and GLenums.
+auto native_identity(nzl::Shader::Stage stage) noexcept {
+  switch (stage) {
+    case nzl::Shader::Stage::Compute:
+      return GL_COMPUTE_SHADER;
+    case nzl::Shader::Stage::Fragment:
+      return GL_FRAGMENT_SHADER;
+    case nzl::Shader::Stage::Geometry:
+      return GL_GEOMETRY_SHADER;
+    case nzl::Shader::Stage::TessellationControl:
+      return GL_TESS_CONTROL_SHADER;
+    case nzl::Shader::Stage::TessellationEvaluation:
+      return GL_TESS_EVALUATION_SHADER;
+    case nzl::Shader::Stage::Vertex:
+      return GL_VERTEX_SHADER;
+    default:
+      return GL_INVALID_ENUM;
+  }
+}
+
+auto create_shader(nzl::Shader::Stage stage) {
+  if (auto id = glCreateShader(native_identity(stage)); id == GL_INVALID_ENUM) {
+    std::ostringstream oss;
+    oss << "Invalid enumerator (" << static_cast<int>(stage)
+        << ") passed as Shader::Stage";
+    throw std::runtime_error(oss.str());
+  } else if (id == 0) {
+    /// @TODO: Add a more extensive error message.
+    std::ostringstream oss;
+    oss << "Error creating Shader object";
+    throw std::runtime_error(oss.str());
+  } else {
+    return id;
+  }
+}
+
+auto check_compilation_errors(unsigned int shader_id) {
+  static const int buffer_size = 1024;
+  int success{0};
+  char buffer[buffer_size];
+  if (glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
+      success == GL_FALSE) {
+    int info_length{0};
+    glGetShaderInfoLog(shader_id, buffer_size, &info_length, buffer);
+    std::ostringstream oss;
+    oss << "Error compiling shader " << shader_id << ": "
+        << std::string_view(buffer, info_length);
+    throw std::runtime_error(oss.str());
+  }
+}
+
+}  // anonymous namespace
+
 namespace nzl {
 
 Shader::Shader(Shader::Stage stage, std::string source)
-    : m_stage{stage}, m_source(std::move(source)) {
+    : m_id{create_shader(stage)}, m_stage{stage}, m_source{std::move(source)} {}
 
-    switch(stage){
-        case Shader::Stage::Compute:
-            Shader::m_shaderID = glCreateShader(GL_COMPUTE_SHADER);
-            break;
-        case Shader::Stage::Fragment:
-            Shader::m_shaderID = glCreateShader(GL_FRAGMENT_SHADER);
-            break;
-        case Shader::Stage::Geometry:
-            Shader::m_shaderID = glCreateShader(GL_GEOMETRY_SHADER);
-            break;
-        case Shader::Stage::TessellationControl:
-            Shader::m_shaderID = glCreateShader(GL_TESS_CONTROL_SHADER);
-            break;
-        case Shader::Stage::TessellationEvaluation:
-            Shader::m_shaderID = glCreateShader(GL_TESS_EVALUATION_SHADER);
-            break;
-        case Shader::Stage::Vertex:
-            Shader::m_shaderID = glCreateShader(GL_VERTEX_SHADER);
-            break;
-    }
-
-    const char* cStringSource = source.c_str();
-    glShaderSource(Shader::m_shaderID, 1, &cStringSource, NULL);
-    glCompileShader(Shader::m_shaderID);
-    Shader::checkCompileErrors();
-}
+Shader::~Shader() noexcept { glDeleteShader(m_id); }
 
 Shader::Stage Shader::stage() const noexcept { return m_stage; }
 
 const std::string& Shader::source() const noexcept { return m_source; }
 
-void Shader::checkCompileErrors(){
-    int success;
-    char infoLog[1024];
-    glGetShaderiv(Shader::m_shaderID, GL_COMPILE_STATUS, &success);
-    if(!success){
-        glGetShaderInfoLog(Shader::m_shaderID, 1024, NULL, infoLog);
-        std::string error = infoLog;
-        error = "ERROR::SHADER_COMPILATION_ERROR:\n" + error +"\n----------------------------------------";
-        throw error;
-    }
-}
-
-Shader::~Shader(){
-    glDeleteShader(m_shaderID);
+void Shader::compile() {
+  const auto source_ptr = m_source.data();
+  const int source_size = m_source.size();
+  glShaderSource(m_id, 1, &source_ptr, &source_size);
+  glCompileShader(m_id);
+  check_compilation_errors(m_id);
 }
 
 }  // namespace nzl
