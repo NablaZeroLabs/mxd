@@ -10,6 +10,7 @@
 #include "mxd.hpp"
 
 // C++ Standard Library
+#include <sstream>
 #include <stdexcept>
 
 // OpenGL Libraries
@@ -25,5 +26,13 @@ void initialize() {
 };
 
 void terminate() noexcept { glfwTerminate(); }
+
+void requires_current_context() {
+  if (glfwGetCurrentContext() == nullptr) {
+    std::ostringstream oss;
+    oss << "There is no current OpenGL context";
+    throw std::runtime_error(oss.str());
+  }
+}
 
 }  // namespace nzl

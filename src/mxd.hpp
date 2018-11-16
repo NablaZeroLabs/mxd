@@ -19,4 +19,8 @@ void initialize();
 /// @brief Terminate mxd.
 void terminate() noexcept;
 
+/// @brief Throws an exception unless there is a current OpenGL context.
+/// @throws std::runtime_error if there is no active OpenGL context.
+void requires_current_context();
+
 }  // namespace nzl

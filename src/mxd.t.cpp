@@ -20,7 +20,15 @@
 TEST(MXD, Initialization) {
   EXPECT_NO_THROW(nzl::initialize());
   EXPECT_NO_THROW(nzl::Window(1024, 768, "Test Window"));
+
+  // Even though I've created a Window, I have not made its context "current"
+  EXPECT_THROW(nzl::requires_current_context(), std::runtime_error);
+
   EXPECT_NO_THROW(nzl::terminate());
+}
+
+TEST(MXD, RequiresCurrentContextThrowsIfNoCurrentContext) {
+  EXPECT_THROW(nzl::requires_current_context(), std::runtime_error);
 }
 
 int main(int argc, char** argv) {
