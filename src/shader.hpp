@@ -11,12 +11,6 @@
 // C++ Standard Library
 #include <string>
 
-// mxd Library
-// Any mxd headers go here.
-
-// Notice: This file cannot contain ANY third-party headers. Exclusively C++
-// Standard Library and mxd Library.
-
 namespace nzl {
 
 /// @brief A graphics shader.
@@ -50,6 +44,7 @@ class Shader {
   unsigned int id() const noexcept;
 
   /// @brief Compile this Shader.
+  /// @throws std::runtime_error on compilation failure.
   void compile();
 
  private:

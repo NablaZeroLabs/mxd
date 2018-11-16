@@ -51,7 +51,7 @@ TEST(Shader, ParameterAccessAndCompilation) {
               "(it threw something else)";
   }
 
-  nzl::finalize();
+  nzl::terminate();
 }
 
 int main(int argc, char** argv) {

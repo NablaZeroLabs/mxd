@@ -14,6 +14,9 @@
 #include <stdexcept>
 #include <string>
 
+// mxd Library
+#include "mxd.hpp"
+
 // Third party libraries
 // Any third-party libraries go here.
 #include <GL/glew.h>
@@ -43,6 +46,8 @@ auto native_identity(nzl::Shader::Stage stage) noexcept {
 }
 
 auto create_shader(nzl::Shader::Stage stage) {
+  nzl::requires_current_context();
+
   if (auto id = glCreateShader(native_identity(stage)); id == GL_INVALID_ENUM) {
     std::ostringstream oss;
     oss << "Invalid enumerator (" << static_cast<int>(stage)
