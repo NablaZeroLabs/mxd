@@ -86,6 +86,8 @@ Shader::Stage Shader::stage() const noexcept { return m_stage; }
 
 const std::string& Shader::source() const noexcept { return m_source; }
 
+unsigned int Shader::id() const noexcept { return m_id; }
+
 void Shader::compile() {
   const auto source_ptr = m_source.data();
   const int source_size = m_source.size();
