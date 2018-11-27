@@ -6,19 +6,16 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
+
 # @TODO: Some of the packages need more sophisticated methods to be found.
 find_package(OpenGL REQUIRED)
 find_package(GLEW 2.1.0 REQUIRED)
+find_package(GLFW 3.2.1 REQUIRED)
 find_package(Threads REQUIRED)
 
-FILE(TO_CMAKE_PATH /usr/include/glm GLM_PATH)
-INCLUDE_DIRECTORIES(${GLM_PATH})
 
-find_library(glfw
-    NAME glfw)
-
-FILE(TO_CMAKE_PATH /usr/include/GLFW GLFW_PATH)
-INCLUDE_DIRECTORIES(${GLFW_PATH})
+INCLUDE_DIRECTORIES (${GLFW_INCLUDE_DIR})
 
 set(MXD_SOURCES
   mxd.cpp
@@ -45,7 +42,7 @@ add_library(mxd
 # "raw" name).
 target_link_libraries(mxd
   PUBLIC
-      glfw
+      ${GLFW_LIBRARY}
       ${OPENGL_LIBRARY}
       GLEW::GLEW
       Threads::Threads
