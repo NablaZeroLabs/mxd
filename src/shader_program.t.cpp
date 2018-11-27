@@ -2,7 +2,7 @@
 
 /// @file      shader_program.t.cpp
 /// @brief     Unit tests for shader_program.hpp.
-/// @author    J. Arrieta <Juan.Arrieta@nablazerolabs.com>
+/// @author    F. Ayala <19fraayala@asfg.edu.mx>
 /// @date      November 27, 2018
 /// @copyright (C) 2018 Nabla Zero Labs
 

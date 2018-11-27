@@ -2,7 +2,7 @@
 
 /// @file      shader_program.hpp
 /// @brief
-/// @author    J. Arrieta <Juan.Arrieta@nablazerolabs.com>
+/// @author    F. Ayala <19fraayala@asfg.edu.mx>
 /// @date      November 27, 2018
 /// @copyright (C) 2018 Nabla Zero Labs
 
