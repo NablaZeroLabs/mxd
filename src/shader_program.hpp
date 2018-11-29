@@ -19,7 +19,7 @@ class ShaderProgram {
  public:
   /// @brief Create a Shader Program from the given shaders.
   /// @param shaders Shaders to be used to create Shader Program.
-  ShaderProgram(std::vector<nzl::Shader> shaders) noexcept;
+  ShaderProgram(std::vector<nzl::Shader> shaders);
 
   /// @brief Destroy this Shader Program.
   ~ShaderProgram() noexcept;
@@ -30,6 +30,7 @@ class ShaderProgram {
 
   /// @brief Return an identifier associated with this Shader Program.
   unsigned int id() const noexcept;
+
  private:
   const std::vector<nzl::Shader> m_shaders;
   const unsigned int m_id;
