@@ -17,11 +17,10 @@
 #include "mxd.hpp"
 
 // Third party libraries
-// Any third-party libraries go here.
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-namespace {
+namespace {  // anonymous namespace
 
 auto check_compilation_errors(unsigned int program_id) {
   static const int buffer_size = 1024;
@@ -50,9 +49,11 @@ auto create_program() {
     return id;
   }
 }
-}  // namespace
+
+}  // anonymous namespace
 
 namespace nzl {
+
 ShaderProgram::ShaderProgram(std::vector<nzl::Shader> shaders)
     : m_shaders{shaders}, m_id{create_program()} {}
 
