@@ -6,13 +6,18 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
+
 # @TODO: Some of the packages need more sophisticated methods to be found.
 find_package(OpenGL REQUIRED)
-find_package(glfw3 3.2.1 REQUIRED)
 find_package(GLEW 2.1.0 REQUIRED)
-find_package(glm REQUIRED)
+find_package(GLFW 3.2.1 REQUIRED)
+find_package(GLM REQUIRED)
 find_package(Threads REQUIRED)
 
+
+INCLUDE_DIRECTORIES (${GLFW_INCLUDE_DIR})
+INCLUDE_DIRECTORIES (${GLM_INCLUDE_DIRS})
 
 set(MXD_SOURCES
   mxd.cpp
@@ -38,11 +43,11 @@ add_library(mxd
 # `find_package` (e.g., ${OPENGL_LIBRARY} is correct, but `glfw` is passing the
 # "raw" name).
 target_link_libraries(mxd
-  glfw
-  ${OPENGL_LIBRARY}
-  glew
-  glm
-  pthread
+  PUBLIC
+      ${GLFW_LIBRARY}
+      ${OPENGL_LIBRARY}
+      GLEW::GLEW
+      Threads::Threads
   )
 
 # @TODO: Add INSTALL commands. We will need to install the headers and
@@ -69,7 +74,7 @@ function(make_mxd_test source)
   target_link_libraries(${target}
     mxd
     GTest::GTest
-    pthread)
+    Threads::Threads)
   gtest_add_tests(TARGET ${target} "" AUTO)
 endfunction(make_mxd_test)
 
