@@ -9,8 +9,8 @@
 // Related mxd header
 #include "geometry.hpp"
 
-// C++ Standard Library
+namespace nzl {
 
-// mxd Library
+void Geometry::render(TimePoint t) { return this->do_render(t); }
 
-namespace nzl {}  // namespace nzl
+}  // namespace nzl

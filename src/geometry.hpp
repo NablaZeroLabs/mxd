@@ -8,8 +8,18 @@
 
 #pragma once
 
-// C++ Standard Library
-
 // mxd Library
+#include "time_point.hpp"
 
-namespace nzl {}  // namespace nzl
+namespace nzl {
+
+class Geometry {
+ public:
+  virtual ~Geometry() = default;
+  void render(TimePoint t);
+
+ private:
+  virtual void do_render(TimePoint t) = 0;
+};
+
+}  // namespace nzl
