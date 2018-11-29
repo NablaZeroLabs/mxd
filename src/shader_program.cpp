@@ -60,7 +60,7 @@ ShaderProgram::ShaderProgram(std::vector<nzl::Shader> shaders)
 ShaderProgram::~ShaderProgram() noexcept { glDeleteProgram(m_id); }
 
 void ShaderProgram::compile() {
-  for (auto& s : m_shaders) {
+  for (auto&& s : m_shaders) {
     glAttachShader(m_id, s.id());
   }
 
