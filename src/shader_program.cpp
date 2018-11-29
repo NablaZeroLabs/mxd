@@ -56,7 +56,7 @@ namespace nzl {
 ShaderProgram::ShaderProgram(std::vector<nzl::Shader> shaders)
     : m_shaders{shaders}, m_id{create_program()} {}
 
-ShaderProgram::~ShaderProgram() { glDeleteProgram(m_id); }
+ShaderProgram::~ShaderProgram() noexcept { glDeleteProgram(m_id); }
 
 void ShaderProgram::compile() {
   for (auto& s : m_shaders) {
