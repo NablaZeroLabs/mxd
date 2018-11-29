@@ -1,7 +1,7 @@
 // -*- coding:utf-8; mode:c++; mode:auto-fill; fill-column:80; -*-
 
-/// @file      shader_program.hpp
-/// @brief
+/// @file      program.hpp
+/// @brief     Fully processed executable code for one or more Shader stages.
 /// @author    F. Ayala <19fraayala@asfg.edu.mx>
 /// @date      November 27, 2018
 /// @copyright (C) 2018 Nabla Zero Labs
@@ -15,20 +15,21 @@
 #include "shader.hpp"
 
 namespace nzl {
-class ShaderProgram {
+
+class Program {
  public:
-  /// @brief Create a Shader Program from the given shaders.
-  /// @param shaders Shaders to be used to create Shader Program.
-  ShaderProgram(std::vector<nzl::Shader> shaders);
+  /// @brief Create a Program from the given @link Shader Shaders@endlink.
+  /// @param shaders Shaders to be used to create this Program.
+  Program(std::vector<nzl::Shader> shaders);
 
-  /// @brief Destroy this Shader Program.
-  ~ShaderProgram() noexcept;
+  /// @brief Destroy this Program.
+  ~Program() noexcept;
 
-  /// @brief Links and compiles this Shader Program.
+  /// @brief Links and compiles this Program.
   /// @throws std::runtime_error on compilation failure.
   void compile();
 
-  /// @brief Return an identifier associated with this Shader Program.
+  /// @brief Return an identifier associated with this Program.
   unsigned int id() const noexcept;
 
  private:

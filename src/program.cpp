@@ -1,13 +1,13 @@
 // -*- coding:utf-8; mode:c++; mode:auto-fill; fill-column:80; -*-
 
-/// @file      shader_program.cpp
-/// @brief     Implementation of shader_program.hpp.
+/// @file      program.cpp
+/// @brief     Implementation of program.hpp.
 /// @author    F. Ayala <19fraayala@asfg.edu.mx>
 /// @date      November 27, 2018
 /// @copyright (C) 2018 Nabla Zero Labs
 
 // Related mxd header
-#include "shader_program.hpp"
+#include "program.hpp"
 
 // C++ Standard Library
 #include <sstream>
@@ -43,7 +43,7 @@ auto create_program() {
   if (auto id = glCreateProgram(); id == 0) {
     /// @TODO: Add a more extensive error message.
     std::ostringstream oss;
-    oss << "Error creating ShaderProgram object";
+    oss << "Error creating Program object";
     throw std::runtime_error(oss.str());
   } else {
     return id;
@@ -54,12 +54,12 @@ auto create_program() {
 
 namespace nzl {
 
-ShaderProgram::ShaderProgram(std::vector<nzl::Shader> shaders)
+Program::Program(std::vector<nzl::Shader> shaders)
     : m_shaders{shaders}, m_id{create_program()} {}
 
-ShaderProgram::~ShaderProgram() noexcept { glDeleteProgram(m_id); }
+Program::~Program() noexcept { glDeleteProgram(m_id); }
 
-void ShaderProgram::compile() {
+void Program::compile() {
   for (auto&& s : m_shaders) {
     glAttachShader(m_id, s.id());
   }
@@ -68,6 +68,6 @@ void ShaderProgram::compile() {
   check_compilation_errors(m_id);
 }
 
-unsigned int ShaderProgram::id() const noexcept { return m_id; }
+unsigned int Program::id() const noexcept { return m_id; }
 
 }  // namespace nzl
