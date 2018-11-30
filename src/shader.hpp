@@ -47,6 +47,9 @@ class Shader {
   /// @throws std::runtime_error on compilation failure.
   void compile();
 
+  Shader(const Shader&) = delete;
+  void operator=(const Shader&) = delete;
+
  private:
   const unsigned int m_id;
   const Stage m_stage;

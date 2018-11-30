@@ -32,6 +32,9 @@ class Program {
   /// @brief Return an identifier associated with this Program.
   unsigned int id() const noexcept;
 
+  Program(const Program&) = delete;
+  void operator=(const Program&) = delete;
+
  private:
   const std::vector<nzl::Shader> m_shaders;
   const unsigned int m_id;
