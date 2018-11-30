@@ -10,6 +10,7 @@
 #include "program.hpp"
 
 // C++ Standard Library
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -29,7 +30,7 @@ auto check_compilation_errors(unsigned int program_id) {
   if (glGetProgramiv(program_id, GL_LINK_STATUS, &success);
       success == GL_FALSE) {
     int info_length{0};
-    glGetShaderInfoLog(program_id, buffer_size, &info_length, buffer);
+    glGetProgramInfoLog(program_id, buffer_size, &info_length, buffer);
     std::ostringstream oss;
     oss << "Error compiling shader program " << program_id << ": "
         << std::string_view(buffer, info_length);
