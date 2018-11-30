@@ -55,7 +55,7 @@ auto create_program() {
 
 namespace nzl {
 
-Program::Program(std::vector<nzl::Shader> shaders)
+Program::Program(std::vector<nzl::Shader>& shaders)
     : m_shaders{shaders}, m_id{create_program()} {}
 
 Program::~Program() noexcept { glDeleteProgram(m_id); }

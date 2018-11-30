@@ -20,7 +20,7 @@ class Program {
  public:
   /// @brief Create a Program from the given @link Shader Shaders@endlink.
   /// @param shaders Shaders to be used to create this Program.
-  Program(std::vector<nzl::Shader> shaders);
+  Program(std::vector<nzl::Shader>& shaders);
 
   /// @brief Destroy this Program.
   ~Program() noexcept;
@@ -36,7 +36,7 @@ class Program {
   void operator=(const Program&) = delete;
 
  private:
-  const std::vector<nzl::Shader> m_shaders;
+  const std::vector<nzl::Shader>& m_shaders;
   const unsigned int m_id;
 };
 
