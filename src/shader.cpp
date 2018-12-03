@@ -87,6 +87,25 @@ Shader::Shader(Shader::Stage stage, std::string source)
 
 Shader::~Shader() noexcept { glDeleteShader(m_id); }
 
+Shader::Shader(Shader&& other) noexcept
+    : m_id{other.m_id},
+      m_stage(other.stage()),
+      m_source{std::move(other.source())} {
+  other.m_id = 0;
+};
+
+Shader& Shader::operator=(Shader&& other) noexcept {
+  m_id = other.m_id;
+  other.m_id = 0;
+
+  m_source = std::move(other.source());
+  other.m_source = nullptr;
+
+  m_stage = other.m_stage;
+
+  return *this;
+};
+
 Shader::Stage Shader::stage() const noexcept { return m_stage; }
 
 const std::string& Shader::source() const noexcept { return m_source; }

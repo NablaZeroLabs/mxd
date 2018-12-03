@@ -34,6 +34,10 @@ class Shader {
   /// @brief Destroy this Shader.
   ~Shader() noexcept;
 
+  Shader(Shader&& other) noexcept;
+
+  Shader& operator=(Shader&& other) noexcept;
+
   /// @brief Return the Stage in the rendering pipeline.
   Stage stage() const noexcept;
 
@@ -51,9 +55,9 @@ class Shader {
   void operator=(const Shader&) = delete;
 
  private:
-  const unsigned int m_id;
-  const Stage m_stage;
-  const std::string m_source;
+  unsigned int m_id;
+  Stage m_stage;
+  std::string m_source;
 };
 
 }  // namespace nzl
