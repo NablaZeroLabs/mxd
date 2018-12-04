@@ -25,6 +25,7 @@ set(MXD_SOURCES
   shader.cpp
   window.cpp
   program.cpp
+  duration.cpp
   )
 
 set(MXD_HEADERS
@@ -33,6 +34,7 @@ set(MXD_HEADERS
   shader.hpp
   window.hpp
   program.hpp
+  duration.hpp
 )
 
 add_library(mxd
@@ -67,6 +69,7 @@ set(MXD_UNIT_TESTS
   geometry.t.cpp
   window.t.cpp
   program.t.cpp
+  duration.t.cpp
   )
 
 function(make_mxd_test source)
