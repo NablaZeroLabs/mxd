@@ -64,7 +64,7 @@ struct Program::IDContainer {
   ~IDContainer() noexcept { glDeleteProgram(m_id); }
 };
 
-Program::Program(std::vector<nzl::Shader>& shaders)
+Program::Program(std::vector<nzl::Shader> shaders)
     : m_shaders{shaders},
       p_id{std::make_shared<IDContainer>(create_program())} {}
 

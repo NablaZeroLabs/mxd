@@ -21,7 +21,7 @@ class Program {
  public:
   /// @brief Create a Program from the given @link Shader Shaders@endlink.
   /// @param shaders Shaders to be used to create this Program.
-  Program(std::vector<nzl::Shader>& shaders);
+  Program(std::vector<nzl::Shader> shaders);
 
   /// @brief Links and compiles this Program.
   /// @throws std::runtime_error on compilation failure.
@@ -33,7 +33,7 @@ class Program {
  private:
   struct IDContainer;
   std::shared_ptr<IDContainer> p_id{nullptr};
-  const std::vector<nzl::Shader>& m_shaders;
+  std::vector<nzl::Shader> m_shaders;
 };
 
 }  // namespace nzl
