@@ -11,6 +11,7 @@
 
 // C++ Standard Library
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 
@@ -55,20 +56,27 @@ auto create_program() {
 
 namespace nzl {
 
-Program::Program(std::vector<nzl::Shader>& shaders)
-    : m_shaders{shaders}, m_id{create_program()} {}
+struct Program::IDContainer {
+  const unsigned int m_id;
 
-Program::~Program() noexcept { glDeleteProgram(m_id); }
+  IDContainer(unsigned int id) noexcept : m_id{id} {}
+
+  ~IDContainer() noexcept { glDeleteProgram(m_id); }
+};
+
+Program::Program(std::vector<nzl::Shader>& shaders)
+    : m_shaders{shaders},
+      p_id{std::make_shared<IDContainer>(create_program())} {}
 
 void Program::compile() {
   for (auto&& s : m_shaders) {
-    glAttachShader(m_id, s.id());
+    glAttachShader(p_id->m_id, s.id());
   }
 
-  glLinkProgram(m_id);
-  check_compilation_errors(m_id);
+  glLinkProgram(p_id->m_id);
+  check_compilation_errors(p_id->m_id);
 }
 
-unsigned int Program::id() const noexcept { return m_id; }
+unsigned int Program::id() const noexcept { return p_id->m_id; }
 
 }  // namespace nzl

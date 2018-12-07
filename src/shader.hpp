@@ -9,6 +9,7 @@
 #pragma once
 
 // C++ Standard Library
+#include <memory>
 #include <string>
 
 namespace nzl {
@@ -31,13 +32,6 @@ class Shader {
   /// @param source Source code for the shader.
   Shader(Stage stage, std::string source);
 
-  /// @brief Destroy this Shader.
-  ~Shader() noexcept;
-
-  Shader(Shader&& other) noexcept;
-
-  Shader& operator=(Shader&& other) noexcept;
-
   /// @brief Return the Stage in the rendering pipeline.
   Stage stage() const noexcept;
 
@@ -51,11 +45,9 @@ class Shader {
   /// @throws std::runtime_error on compilation failure.
   void compile();
 
-  Shader(const Shader&) = delete;
-  void operator=(const Shader&) = delete;
-
  private:
-  unsigned int m_id;
+  struct IDContainer;
+  std::shared_ptr<IDContainer> p_id{nullptr};
   Stage m_stage;
   std::string m_source;
 };

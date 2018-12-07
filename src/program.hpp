@@ -9,6 +9,7 @@
 #pragma once
 
 // C++ Standard Library
+#include <memory>
 #include <vector>
 
 // mxd Library
@@ -22,9 +23,6 @@ class Program {
   /// @param shaders Shaders to be used to create this Program.
   Program(std::vector<nzl::Shader>& shaders);
 
-  /// @brief Destroy this Program.
-  ~Program() noexcept;
-
   /// @brief Links and compiles this Program.
   /// @throws std::runtime_error on compilation failure.
   void compile();
@@ -32,12 +30,10 @@ class Program {
   /// @brief Return an identifier associated with this Program.
   unsigned int id() const noexcept;
 
-  Program(const Program&) = delete;
-  void operator=(const Program&) = delete;
-
  private:
+  struct IDContainer;
+  std::shared_ptr<IDContainer> p_id{nullptr};
   const std::vector<nzl::Shader>& m_shaders;
-  const unsigned int m_id;
 };
 
 }  // namespace nzl
