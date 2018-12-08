@@ -152,7 +152,7 @@ TEST(Program, BoolUniform) {
   std::string name = "testInt";
 
   program.use();
-  ASSERT_NO_THROW(program.setBool(name, true););
+  ASSERT_NO_THROW(program.set(name, true););
 
   int value = -1000;
 
@@ -175,7 +175,7 @@ TEST(Program, IntUniform) {
   std::string name = "testInt";
 
   program.use();
-  ASSERT_NO_THROW(program.setInt(name, 687););
+  ASSERT_NO_THROW(program.set(name, 687););
 
   int value = -1000;
 
@@ -198,7 +198,7 @@ TEST(Program, FloatUniform) {
   std::string name = "testFloat";
 
   program.use();
-  ASSERT_NO_THROW(program.setFloat(name, 687.34f););
+  ASSERT_NO_THROW(program.set(name, 687.34f););
 
   float value = -1000.0f;
 
@@ -224,7 +224,7 @@ TEST(Program, 2FloatUniform) {
   float val2 = 773.4321f;
 
   program.use();
-  ASSERT_NO_THROW(program.setVec2(name, val1, val2););
+  ASSERT_NO_THROW(program.set(name, val1, val2););
 
   float ret[2];
 
@@ -253,7 +253,7 @@ TEST(Program, 3FloatUniform) {
   float val3 = 123.65656f;
 
   program.use();
-  ASSERT_NO_THROW(program.setVec3(name, val1, val2, val3););
+  ASSERT_NO_THROW(program.set(name, val1, val2, val3););
 
   float ret[3];
 

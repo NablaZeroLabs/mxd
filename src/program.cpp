@@ -94,8 +94,8 @@ struct Program::IDContainer {
 };
 
 Program::Program(std::vector<nzl::Shader> shaders)
-    : m_shaders{shaders},
-      p_id{std::make_shared<IDContainer>(create_program())} {}
+    : p_id{std::make_shared<IDContainer>(create_program())},
+      m_shaders{shaders} {}
 
 void Program::compile() {
   for (auto&& s : m_shaders) {
@@ -110,24 +110,23 @@ unsigned int Program::id() const noexcept { return p_id->m_id; }
 
 void Program::use() const noexcept { glUseProgram(p_id->m_id); }
 
-void Program::setBool(std::string name, bool value) const {
+void Program::set(std::string name, bool value) const {
   glUniform1i(p_id->findUniformLocation(name), (int)value);
 }
 
-void Program::setInt(std::string name, int value) const {
+void Program::set(std::string name, int value) const {
   glUniform1i(p_id->findUniformLocation(name), value);
 }
 
-void Program::setFloat(std::string name, float value) const {
+void Program::set(std::string name, float value) const {
   glUniform1f(p_id->findUniformLocation(name), value);
 }
 
-void Program::setVec2(std::string name, float x, float y) const {
+void Program::set(std::string name, float x, float y) const {
   glUniform2f(p_id->findUniformLocation(name), x, y);
 }
 
-void Program::setVec3(const std::string& name, float x, float y,
-                      float z) const {
+void Program::set(const std::string& name, float x, float y, float z) const {
   glUniform3f(p_id->findUniformLocation(name), x, y, z);
 }
 
