@@ -51,7 +51,13 @@ class Program {
   /// @param value Float value to be set
   void setFloat(std::string name, float value) const;
 
- private:
+  /// @brief Sets a vec2 uniform within the shader
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param x First value of the vec2 to be set
+  /// @param y Second value of the vec2 to be set
+  void setVec2(std::string name, float x, float y) const;
+
   struct IDContainer;
   std::shared_ptr<IDContainer> p_id{nullptr};
   std::vector<nzl::Shader> m_shaders;
