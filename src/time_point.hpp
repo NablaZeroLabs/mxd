@@ -13,17 +13,38 @@
 
 namespace nzl {
 
+/// @brief A Barycentric Dynamical Time.
 class TimePoint {
  public:
+  /// @brief Build a timepoint from a count of Julian days.
+  static TimePoint Julian(double);
   static TimePoint DistantPast() noexcept;
   static TimePoint DistantFuture() noexcept;
-  static TimePoint JulianDay(double jd) noexcept;
-  static TimePoint SecondsFromJ2000(double sec) noexcept;
 
-  TimePoint();
+  /// @brief Build a TimePoint.
+  /// @param duration Elapsed duration from the J2000 epoch.
+  TimePoint(Duration duration = Duration()) noexcept;
+
+  /// @brief Return the duration elapsed from the J2000 epoch.
+  Duration elapsed() const noexcept;
+
+  TimePoint& operator+=(const Duration& duration);
+  TimePoint& operator-=(const Duration& duration);
 
  private:
-  Duration m_delta;
+  /// @note The implementation tracks TDB seconds from the J2000 epoch.
+  Duration m_duration{};
 };
+
+TimePoint operator+(const TimePoint& lhs, const Duration& rhs);
+TimePoint operator-(const TimePoint& lhs, const Duration& rhs);
+
+Duration operator-(const TimePoint& lhs, const TimePoint& rhs);
+
+bool operator<(const TimePoint& lhs, const TimePoint& rhs);
+bool operator>(const TimePoint& lhs, const TimePoint& rhs);
+bool operator<=(const TimePoint& lhs, const TimePoint& rhs);
+bool operator>=(const TimePoint& lhs, const TimePoint& rhs);
+bool operator!=(const TimePoint& lhs, const TimePoint& rhs);
 
 }  // namespace nzl
