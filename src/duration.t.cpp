@@ -16,11 +16,21 @@
 // Google Test Framework
 #include <gtest/gtest.h>
 
-TEST( duration, Failing ) {
-    ASSERT_TRUE( false ) << "You must add unit tests for duration.hpp";
+TEST(Duration, DefaultConstructorIsZero) {
+  nzl::Duration d;
+
+  ASSERT_EQ(d.years(), 0.0);
+  ASSERT_EQ(d.days(), 0.0);
+  ASSERT_EQ(d.hours(), 0.0);
+  ASSERT_EQ(d.minutes(), 0.0);
+  ASSERT_EQ(d.seconds(), 0.0);
 }
 
-int main( int argc, char** argv ) {
-  ::testing::InitGoogleTest( &argc, argv );
+TEST(Duration, Failing) {
+  ASSERT_TRUE(false) << "You must add unit tests for duration.hpp";
+}
+
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
