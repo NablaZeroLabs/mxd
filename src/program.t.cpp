@@ -158,6 +158,29 @@ TEST(Program, BoolUniform) {
   nzl::terminate();
 }
 
+TEST(Program, IntUniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{createUniformTestProgram()};
+
+  std::string name = "testInt";
+
+  program.use();
+  ASSERT_NO_THROW(program.setInt(name, 687););
+
+  int value = -1000;
+
+  glGetUniformiv(program.id(), glGetUniformLocation(program.id(), name.c_str()),
+                 &value);
+
+  EXPECT_EQ(value, 687);
+
+  nzl::terminate();
+}
+
 TEST(Program, Failing) {
   ASSERT_TRUE(false) << "You must add unit tests for program.hpp";
 }

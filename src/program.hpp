@@ -39,6 +39,12 @@ class Program {
   /// @param value Boolean value to be set
   void setBool(std::string name, bool value) const;
 
+  /// @brief Sets a int uniform within the shader
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Integer value to be set
+  void setInt(std::string name, int value) const;
+
  private:
   struct IDContainer;
   std::shared_ptr<IDContainer> p_id{nullptr};

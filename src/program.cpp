@@ -114,4 +114,8 @@ void Program::setBool(std::string name, bool value) const {
   glUniform1i(p_id->findUniformLocation(name), (int)value);
 }
 
+void Program::setInt(std::string name, int value) const {
+  glUniform1i(p_id->findUniformLocation(name), value);
+}
+
 }  // namespace nzl
