@@ -33,32 +33,32 @@ class Program {
   /// @brief Calls glUseProgram() with this program's id
   void use() const noexcept;
 
-  /// @brief Sets a boolean uniform within the shader
+  /// @brief Sets a boolean uniform within the Program.
   /// @throws std::runtime_error when uniform not found
   /// @param name Name of the uniform
   /// @param value Boolean value to be set
   void setBool(std::string name, bool value) const;
 
-  /// @brief Sets a int uniform within the shader
+  /// @brief Sets a int uniform within the Program.
   /// @throws std::runtime_error when uniform not found
   /// @param name Name of the uniform
   /// @param value Integer value to be set
   void setInt(std::string name, int value) const;
 
-  /// @brief Sets a float uniform within the shader
+  /// @brief Sets a float uniform within the Program.
   /// @throws std::runtime_error when uniform not found
   /// @param name Name of the uniform
   /// @param value Float value to be set
   void setFloat(std::string name, float value) const;
 
-  /// @brief Sets a vec2 uniform within the shader
+  /// @brief Sets a vec2 uniform within the Program.
   /// @throws std::runtime_error when uniform not found
   /// @param name Name of the uniform
   /// @param x First value of the vec2 to be set
   /// @param y Second value of the vec2 to be set
   void setVec2(std::string name, float x, float y) const;
 
-  /// @brief Sets a vec3 uniform within the shader
+  /// @brief Sets a vec3 uniform within the Program.
   /// @throws std::runtime_error when uniform not found
   /// @param name Name of the uniform
   /// @param x First value of the vec3 to be set
