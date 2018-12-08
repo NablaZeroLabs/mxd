@@ -126,4 +126,9 @@ void Program::setVec2(std::string name, float x, float y) const {
   glUniform2f(p_id->findUniformLocation(name), x, y);
 }
 
+void Program::setVec3(const std::string& name, float x, float y,
+                      float z) const {
+  glUniform3f(p_id->findUniformLocation(name), x, y, z);
+}
+
 }  // namespace nzl
