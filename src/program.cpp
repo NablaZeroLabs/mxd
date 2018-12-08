@@ -10,10 +10,13 @@
 #include "program.hpp"
 
 // C++ Standard Library
-#include <iostream>
+#include <exception>
+#include <map>
 #include <memory>
+#include <ostream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 
 // mxd Library
 #include "mxd.hpp"
@@ -62,6 +65,32 @@ struct Program::IDContainer {
   IDContainer(unsigned int id) noexcept : m_id{id} {}
 
   ~IDContainer() noexcept { glDeleteProgram(m_id); }
+
+  int findUniformLocation(std::string name) {
+    auto loc = m_u.find(name);
+
+    if (loc != m_u.end()) {
+      return loc->second;
+    }
+
+    m_u.insert(std::make_pair(name, createUniform(name)));
+    return m_u.find(name)->second;
+  }
+
+ private:
+  std::map<std::string, int> m_u;
+
+  int createUniform(std::string& name) {
+    int uniformLocation = glGetUniformLocation(m_id, name.c_str());
+    if (uniformLocation < 0) {
+      std::ostringstream oss;
+
+      oss << "Program " << m_id << " error, unable to find uniform: " << name;
+
+      throw new std::runtime_error(oss.str());
+    }
+    return uniformLocation;
+  }
 };
 
 Program::Program(std::vector<nzl::Shader> shaders)
@@ -78,5 +107,7 @@ void Program::compile() {
 }
 
 unsigned int Program::id() const noexcept { return p_id->m_id; }
+
+void Program::use() const noexcept { glUseProgram(p_id->m_id); }
 
 }  // namespace nzl

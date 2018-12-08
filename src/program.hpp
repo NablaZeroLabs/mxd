@@ -30,6 +30,9 @@ class Program {
   /// @brief Return an identifier associated with this Program.
   unsigned int id() const noexcept;
 
+  /// @brief Calls glUseProgram() with this program's id
+  void use() const noexcept;
+
  private:
   struct IDContainer;
   std::shared_ptr<IDContainer> p_id{nullptr};
