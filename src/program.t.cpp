@@ -20,6 +20,48 @@
 // Google Test Framework
 #include <gtest/gtest.h>
 
+// Third Party Libraries
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+namespace {  // anonymous namespace
+nzl::Program createUniformTestProgram() {
+  std::string vSource =
+      "#version 330\n"
+      "layout (location = 0) in vec3 aPos;\n"
+      "out vec4 vertexColor;\n"
+      "void main() {\n"
+      "gl_Position = vec4(aPos, 1.0);\n"
+      "vertexColor = vec4(0.5,0.0,0.0,1.0);\n}";
+
+  std::string fSource =
+      "#version 330\n"
+      "out vec4 FragColor;\n"
+      ""
+      "in vec4 vertexColor;\n"
+      ""
+      "uniform int testInt;\n"
+      ""
+      "void main(){\n"
+      "FragColor = vertexColor*testInt;}";
+
+  std::vector<nzl::Shader> shaders;
+
+  nzl::Shader shader1(nzl::Shader::Stage::Vertex, vSource);
+  shaders.push_back(shader1);
+  shaders.back().compile();
+  nzl::Shader shader2(nzl::Shader::Stage::Fragment, fSource);
+  shaders.push_back(shader2);
+  shaders.back().compile();
+
+  nzl::Program program(shaders);
+
+  program.compile();
+
+  return program;
+}
+}  // anonymous namespace
+
 TEST(Program, ParameterAccessAndCompilation) {
   nzl::initialize();
   nzl::Window win(800, 600, "Invisible Window");
@@ -89,6 +131,29 @@ TEST(Program, CopyOperator) {
   EXPECT_NE(program1.id(), program3.id());
   program3 = program1;
   EXPECT_EQ(program3.id(), program1.id());
+
+  nzl::terminate();
+}
+
+TEST(Program, BoolUniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{createUniformTestProgram()};
+
+  std::string name = "testInt";
+
+  program.use();
+  ASSERT_NO_THROW(program.setBool(name, true););
+
+  int value = -1000;
+
+  glGetUniformiv(program.id(), glGetUniformLocation(program.id(), name.c_str()),
+                 &value);
+
+  EXPECT_EQ(value, static_cast<int>(true));
 
   nzl::terminate();
 }

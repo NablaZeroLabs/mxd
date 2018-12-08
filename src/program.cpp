@@ -110,4 +110,8 @@ unsigned int Program::id() const noexcept { return p_id->m_id; }
 
 void Program::use() const noexcept { glUseProgram(p_id->m_id); }
 
+void Program::setBool(std::string name, bool value) const {
+  glUniform1i(p_id->findUniformLocation(name), (int)value);
+}
+
 }  // namespace nzl

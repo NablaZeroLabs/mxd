@@ -33,6 +33,12 @@ class Program {
   /// @brief Calls glUseProgram() with this program's id
   void use() const noexcept;
 
+  /// @brief Sets a boolean uniform within the shader
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Boolean value to be set
+  void setBool(std::string name, bool value) const;
+
  private:
   struct IDContainer;
   std::shared_ptr<IDContainer> p_id{nullptr};
