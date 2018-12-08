@@ -25,6 +25,7 @@ set(MXD_SOURCES
   window.cpp
   program.cpp
   duration.cpp
+  time_point.cpp
   )
 
 set(MXD_HEADERS
@@ -34,6 +35,7 @@ set(MXD_HEADERS
   window.hpp
   program.hpp
   duration.hpp
+  time_point.hpp
 )
 
 add_library(mxd
@@ -65,6 +67,7 @@ set(MXD_UNIT_TESTS
   window.t.cpp
   program.t.cpp
   duration.t.cpp
+  time_point.t.cpp
   )
 
 function(make_mxd_test source)
