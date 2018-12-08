@@ -10,8 +10,13 @@
 #include "program.hpp"
 
 // C++ Standard Library
+#include <exception>
+#include <map>
+#include <memory>
+#include <ostream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 
 // mxd Library
 #include "mxd.hpp"
@@ -29,7 +34,7 @@ auto check_compilation_errors(unsigned int program_id) {
   if (glGetProgramiv(program_id, GL_LINK_STATUS, &success);
       success == GL_FALSE) {
     int info_length{0};
-    glGetShaderInfoLog(program_id, buffer_size, &info_length, buffer);
+    glGetProgramInfoLog(program_id, buffer_size, &info_length, buffer);
     std::ostringstream oss;
     oss << "Error compiling shader program " << program_id << ": "
         << std::string_view(buffer, info_length);
@@ -54,20 +59,76 @@ auto create_program() {
 
 namespace nzl {
 
-Program::Program(std::vector<nzl::Shader> shaders)
-    : m_shaders{shaders}, m_id{create_program()} {}
+struct Program::IDContainer {
+  const unsigned int m_id;
 
-Program::~Program() noexcept { glDeleteProgram(m_id); }
+  IDContainer(unsigned int id) noexcept : m_id{id} {}
+
+  ~IDContainer() noexcept { glDeleteProgram(m_id); }
+
+  int findUniformLocation(std::string name) {
+    auto loc = m_u.find(name);
+
+    if (loc != m_u.end()) {
+      return loc->second;
+    }
+
+    m_u.insert(std::make_pair(name, createUniform(name)));
+    return m_u.find(name)->second;
+  }
+
+ private:
+  std::map<std::string, int> m_u;
+
+  int createUniform(std::string& name) {
+    int uniformLocation = glGetUniformLocation(m_id, name.c_str());
+    if (uniformLocation < 0) {
+      std::ostringstream oss;
+
+      oss << "Program " << m_id << " error, unable to find uniform: " << name;
+
+      throw new std::runtime_error(oss.str());
+    }
+    return uniformLocation;
+  }
+};
+
+Program::Program(std::vector<nzl::Shader> shaders)
+    : m_shaders{shaders},
+      p_id{std::make_shared<IDContainer>(create_program())} {}
 
 void Program::compile() {
   for (auto&& s : m_shaders) {
-    glAttachShader(m_id, s.id());
+    glAttachShader(p_id->m_id, s.id());
   }
 
-  glLinkProgram(m_id);
-  check_compilation_errors(m_id);
+  glLinkProgram(p_id->m_id);
+  check_compilation_errors(p_id->m_id);
 }
 
-unsigned int Program::id() const noexcept { return m_id; }
+unsigned int Program::id() const noexcept { return p_id->m_id; }
+
+void Program::use() const noexcept { glUseProgram(p_id->m_id); }
+
+void Program::setBool(std::string name, bool value) const {
+  glUniform1i(p_id->findUniformLocation(name), (int)value);
+}
+
+void Program::setInt(std::string name, int value) const {
+  glUniform1i(p_id->findUniformLocation(name), value);
+}
+
+void Program::setFloat(std::string name, float value) const {
+  glUniform1f(p_id->findUniformLocation(name), value);
+}
+
+void Program::setVec2(std::string name, float x, float y) const {
+  glUniform2f(p_id->findUniformLocation(name), x, y);
+}
+
+void Program::setVec3(const std::string& name, float x, float y,
+                      float z) const {
+  glUniform3f(p_id->findUniformLocation(name), x, y, z);
+}
 
 }  // namespace nzl
