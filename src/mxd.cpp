@@ -23,8 +23,6 @@ void initialize() {
   if (auto status = glfwInit(); status == GLFW_FALSE) {
     throw std::runtime_error("Unable to initialize GLFW");
   }
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 };
 
 void terminate() noexcept { glfwTerminate(); }
