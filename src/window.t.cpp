@@ -36,10 +36,6 @@ TEST(Window, InitializeWindow) {
   nzl::terminate();
 }
 
-TEST(Window, MissingAPITests) {
-  EXPECT_TRUE(false) << "Window API is missing extensive unit tests";
-}
-
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
