@@ -30,8 +30,9 @@ nzl::Program createUniformTestProgram() {
       "#version 330\n"
       "layout (location = 0) in vec3 aPos;\n"
       "out vec4 vertexColor;\n"
+      "uniform float testFloat;"
       "void main() {\n"
-      "gl_Position = vec4(aPos, 1.0);\n"
+      "gl_Position = vec4(aPos, 1.0*testFloat);\n"
       "vertexColor = vec4(0.5,0.0,0.0,1.0);\n}";
 
   std::string fSource =
@@ -177,6 +178,29 @@ TEST(Program, IntUniform) {
                  &value);
 
   EXPECT_EQ(value, 687);
+
+  nzl::terminate();
+}
+
+TEST(Program, FloatUniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{createUniformTestProgram()};
+
+  std::string name = "testFloat";
+
+  program.use();
+  ASSERT_NO_THROW(program.setFloat(name, 687.34f););
+
+  float value = -1000.0f;
+
+  glGetUniformfv(program.id(), glGetUniformLocation(program.id(), name.c_str()),
+                 &value);
+
+  EXPECT_FLOAT_EQ(value, 687.34f);
 
   nzl::terminate();
 }

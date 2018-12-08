@@ -45,6 +45,12 @@ class Program {
   /// @param value Integer value to be set
   void setInt(std::string name, int value) const;
 
+  /// @brief Sets a float uniform within the shader
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Float value to be set
+  void setFloat(std::string name, float value) const;
+
  private:
   struct IDContainer;
   std::shared_ptr<IDContainer> p_id{nullptr};

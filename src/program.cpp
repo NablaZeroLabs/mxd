@@ -118,4 +118,8 @@ void Program::setInt(std::string name, int value) const {
   glUniform1i(p_id->findUniformLocation(name), value);
 }
 
+void Program::setFloat(std::string name, float value) const {
+  glUniform1f(p_id->findUniformLocation(name), value);
+}
+
 }  // namespace nzl
