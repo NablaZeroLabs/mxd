@@ -92,7 +92,7 @@ struct Shader::IDContainer {
 };
 
 Shader::Shader(Shader::Stage stage, std::string source)
-    : p_id{std::make_shared<IDContainer>(create_shader(stage))},
+    : m_id_container{std::make_shared<IDContainer>(create_shader(stage))},
       m_stage{stage},
       m_source{std::move(source)} {}
 
@@ -100,14 +100,14 @@ Shader::Stage Shader::stage() const noexcept { return m_stage; }
 
 const std::string& Shader::source() const noexcept { return m_source; }
 
-unsigned int Shader::id() const noexcept { return p_id->m_id; }
+unsigned int Shader::id() const noexcept { return m_id_container->m_id; }
 
 void Shader::compile() {
   const auto source_ptr = m_source.data();
   const int source_size = m_source.size();
-  glShaderSource(p_id->m_id, 1, &source_ptr, &source_size);
-  glCompileShader(p_id->m_id);
-  check_compilation_errors(p_id->m_id);
+  glShaderSource(m_id_container->m_id, 1, &source_ptr, &source_size);
+  glCompileShader(m_id_container->m_id);
+  check_compilation_errors(m_id_container->m_id);
 }
 
 }  // namespace nzl

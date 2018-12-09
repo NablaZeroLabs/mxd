@@ -94,40 +94,40 @@ struct Program::IDContainer {
 };
 
 Program::Program(std::vector<nzl::Shader> shaders)
-    : p_id{std::make_shared<IDContainer>(create_program())},
+    : m_id_container{std::make_shared<IDContainer>(create_program())},
       m_shaders{shaders} {}
 
 void Program::compile() {
   for (auto&& s : m_shaders) {
-    glAttachShader(p_id->m_id, s.id());
+    glAttachShader(m_id_container->m_id, s.id());
   }
 
-  glLinkProgram(p_id->m_id);
-  check_compilation_errors(p_id->m_id);
+  glLinkProgram(m_id_container->m_id);
+  check_compilation_errors(m_id_container->m_id);
 }
 
-unsigned int Program::id() const noexcept { return p_id->m_id; }
+unsigned int Program::id() const noexcept { return m_id_container->m_id; }
 
-void Program::use() const noexcept { glUseProgram(p_id->m_id); }
+void Program::use() const noexcept { glUseProgram(m_id_container->m_id); }
 
 void Program::set(std::string name, bool value) const {
-  glUniform1i(p_id->findUniformLocation(name), (int)value);
+  glUniform1i(m_id_container->findUniformLocation(name), (int)value);
 }
 
 void Program::set(std::string name, int value) const {
-  glUniform1i(p_id->findUniformLocation(name), value);
+  glUniform1i(m_id_container->findUniformLocation(name), value);
 }
 
 void Program::set(std::string name, float value) const {
-  glUniform1f(p_id->findUniformLocation(name), value);
+  glUniform1f(m_id_container->findUniformLocation(name), value);
 }
 
 void Program::set(std::string name, float x, float y) const {
-  glUniform2f(p_id->findUniformLocation(name), x, y);
+  glUniform2f(m_id_container->findUniformLocation(name), x, y);
 }
 
 void Program::set(const std::string& name, float x, float y, float z) const {
-  glUniform3f(p_id->findUniformLocation(name), x, y, z);
+  glUniform3f(m_id_container->findUniformLocation(name), x, y, z);
 }
 
 }  // namespace nzl

@@ -67,7 +67,7 @@ class Program {
   void set(const std::string& name, float x, float y, float z) const;
 
   struct IDContainer;
-  std::shared_ptr<IDContainer> p_id{nullptr};
+  std::shared_ptr<IDContainer> m_id_container{nullptr};
   std::vector<nzl::Shader> m_shaders;
 };
 
