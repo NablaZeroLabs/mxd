@@ -47,7 +47,7 @@ class Shader {
 
  private:
   struct IDContainer;
-  std::shared_ptr<IDContainer> p_id{nullptr};
+  std::shared_ptr<IDContainer> m_id_container{nullptr};
   Stage m_stage;
   std::string m_source;
 };
