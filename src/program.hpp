@@ -63,7 +63,7 @@ class Program {
   /// @param name Name of the uniform
   /// @param x First value of the vec3 to be set
   /// @param y Second value of the vec3 to be set
-  /// @param z Thirds value of the vec4 to be set
+  /// @param z Third value of the vec3 to be set
   void set(const std::string& name, float x, float y, float z) const;
 
   struct IDContainer;
