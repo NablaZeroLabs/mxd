@@ -33,12 +33,13 @@ nzl::Program create_uniform_test_program() {
       "uniform float testFloat;\n"
       "uniform vec2 testVec2;\n"
       "uniform vec3 testVec3;\n"
+      "uniform vec4 testVec4;\n"
       "void main() {\n"
       "vec3 pos = aPos;\n"
       "pos*=testVec3;\n"
       "pos.xy+=testVec2;\n"
       "gl_Position = vec4(pos, 1.0*testFloat);\n"
-      "vertexColor = vec4(0.5,0.0,0.0,1.0);\n}";
+      "vertexColor = vec4(0.5,0.0,0.0,1.0)*testVec4;\n}";
 
   std::string fSource =
       "#version 330\n"
@@ -264,6 +265,38 @@ TEST(Program, 3FloatUniform) {
   EXPECT_FLOAT_EQ(ret[0], val1);
   EXPECT_FLOAT_EQ(ret[1], val2);
   EXPECT_FLOAT_EQ(ret[2], val3);
+
+  nzl::terminate();
+}
+
+TEST(Program, 4FloatUniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testVec4";
+
+  float val1 = 523.1234f;
+  float val2 = 773.4321f;
+  float val3 = 123.65656f;
+  float val4 = 931.44912f;
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, val1, val2, val3, val4););
+
+  float ret[4];
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * sizeof(float), &ret[0]);
+
+  EXPECT_FLOAT_EQ(ret[0], val1);
+  EXPECT_FLOAT_EQ(ret[1], val2);
+  EXPECT_FLOAT_EQ(ret[2], val3);
+  EXPECT_FLOAT_EQ(ret[3], val4);
 
   nzl::terminate();
 }

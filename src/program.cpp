@@ -130,4 +130,9 @@ void Program::set(const std::string& name, float x, float y, float z) const {
   glUniform3f(m_id_container->find_uniform_location(name), x, y, z);
 }
 
+void Program::set(const std::string& name, float x, float y, float z,
+                  float w) const {
+  glUniform4f(m_id_container->find_uniform_location(name), x, y, z, w);
+}
+
 }  // namespace nzl

@@ -66,6 +66,15 @@ class Program {
   /// @param z Third value of the vec3 to be set
   void set(const std::string& name, float x, float y, float z) const;
 
+  /// @brief Sets a vec4 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param x First value of the vec4 to be set
+  /// @param y Second value of the vec4 to be set
+  /// @param z Third value of the vec4 to be set
+  /// @param w Fourth value of the vec4 to be set
+  void set(const std::string& name, float x, float y, float z, float w) const;
+
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};
   std::vector<nzl::Shader> m_shaders;
