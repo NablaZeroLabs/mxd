@@ -66,21 +66,21 @@ struct Program::IDContainer {
 
   ~IDContainer() noexcept { glDeleteProgram(m_id); }
 
-  int findUniformLocation(const std::string& name) {
+  int find_uniform_location(const std::string& name) {
     auto loc = m_u.find(name);
 
     if (loc != m_u.end()) {
       return loc->second;
     }
 
-    m_u.insert(std::make_pair(name, createUniform(name)));
+    m_u.insert(std::make_pair(name, create_uniform(name)));
     return m_u.find(name)->second;
   }
 
  private:
   std::map<std::string, int> m_u;
 
-  int createUniform(const std::string& name) {
+  int create_uniform(const std::string& name) {
     int uniformLocation = glGetUniformLocation(m_id, name.c_str());
     if (uniformLocation < 0) {
       std::ostringstream oss;
@@ -111,23 +111,23 @@ unsigned int Program::id() const noexcept { return m_id_container->m_id; }
 void Program::use() const noexcept { glUseProgram(m_id_container->m_id); }
 
 void Program::set(const std::string& name, bool value) const {
-  glUniform1i(m_id_container->findUniformLocation(name), (int)value);
+  glUniform1i(m_id_container->find_uniform_location(name), (int)value);
 }
 
 void Program::set(const std::string& name, int value) const {
-  glUniform1i(m_id_container->findUniformLocation(name), value);
+  glUniform1i(m_id_container->find_uniform_location(name), value);
 }
 
 void Program::set(const std::string& name, float value) const {
-  glUniform1f(m_id_container->findUniformLocation(name), value);
+  glUniform1f(m_id_container->find_uniform_location(name), value);
 }
 
 void Program::set(const std::string& name, float x, float y) const {
-  glUniform2f(m_id_container->findUniformLocation(name), x, y);
+  glUniform2f(m_id_container->find_uniform_location(name), x, y);
 }
 
 void Program::set(const std::string& name, float x, float y, float z) const {
-  glUniform3f(m_id_container->findUniformLocation(name), x, y, z);
+  glUniform3f(m_id_container->find_uniform_location(name), x, y, z);
 }
 
 }  // namespace nzl

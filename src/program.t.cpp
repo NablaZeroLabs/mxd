@@ -25,7 +25,7 @@
 #include <GLFW/glfw3.h>
 
 namespace {  // anonymous namespace
-nzl::Program createUniformTestProgram() {
+nzl::Program create_uniform_test_program() {
   std::string vSource =
       "#version 330\n"
       "layout (location = 0) in vec3 aPos;\n"
@@ -147,7 +147,7 @@ TEST(Program, BoolUniform) {
   win.hide();
   win.make_current();
 
-  nzl::Program program{createUniformTestProgram()};
+  nzl::Program program{create_uniform_test_program()};
 
   std::string name = "testInt";
 
@@ -170,7 +170,7 @@ TEST(Program, IntUniform) {
   win.hide();
   win.make_current();
 
-  nzl::Program program{createUniformTestProgram()};
+  nzl::Program program{create_uniform_test_program()};
 
   std::string name = "testInt";
 
@@ -193,7 +193,7 @@ TEST(Program, FloatUniform) {
   win.hide();
   win.make_current();
 
-  nzl::Program program{createUniformTestProgram()};
+  nzl::Program program{create_uniform_test_program()};
 
   std::string name = "testFloat";
 
@@ -216,7 +216,7 @@ TEST(Program, 2FloatUniform) {
   win.hide();
   win.make_current();
 
-  nzl::Program program{createUniformTestProgram()};
+  nzl::Program program{create_uniform_test_program()};
 
   std::string name = "testVec2";
 
@@ -244,7 +244,7 @@ TEST(Program, 3FloatUniform) {
   win.hide();
   win.make_current();
 
-  nzl::Program program{createUniformTestProgram()};
+  nzl::Program program{create_uniform_test_program()};
 
   std::string name = "testVec3";
 
