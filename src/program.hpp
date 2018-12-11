@@ -96,6 +96,12 @@ class Program {
   /// @param value Vec4 to be set
   void set(const std::string& name, const glm::vec4& value) const;
 
+  /// @brief Sets a mat2 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Mat2 to be set
+  void set(const std::string& name, const glm::mat2& value) const;
+
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};
   std::vector<nzl::Shader> m_shaders;

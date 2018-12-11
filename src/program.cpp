@@ -148,4 +148,9 @@ void Program::set(const std::string& name, const glm::vec4& value) const {
   glUniform4fv(m_id_container->find_uniform_location(name), 1, &value[0]);
 }
 
+void Program::set(const std::string& name, const glm::mat2& value) const {
+  glUniformMatrix2fv(m_id_container->find_uniform_location(name), 1, GL_FALSE,
+                     &value[0][0]);
+}
+
 }  // namespace nzl
