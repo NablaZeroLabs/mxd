@@ -37,8 +37,6 @@ Duration Duration::Minutes(double value) noexcept {
 
 Duration Duration::Seconds(double value) noexcept { return Duration(value); }
 
-/// @TODO: Implement the rest of the operations (I'm adding some examples).
-
 double Duration::years() const noexcept { return m_value / (86400 * 365.25); }
 
 double Duration::days() const noexcept { return m_value / 86400; }
