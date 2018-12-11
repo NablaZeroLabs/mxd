@@ -15,6 +15,8 @@
 
 namespace nzl {
 
+Duration::Duration() noexcept : m_value{0} {}
+
 /// @brief The private constructor can only be called by member functions.
 /// @note The Duration object always stores seconds.
 Duration::Duration(double value) noexcept : m_value{value} {}

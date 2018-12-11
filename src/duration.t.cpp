@@ -16,6 +16,13 @@
 // Google Test Framework
 #include <gtest/gtest.h>
 
+TEST(Duration, DefaultConstructorIsZero) {
+  nzl::Duration d;
+
+  ASSERT_EQ(d.years(), 0.0);
+  ASSERT_EQ(d.days(), 0.0);
+  ASSERT_EQ(d.hours(), 0.0);
+  ASSERT_EQ(d.minutes(), 0.0);
 TEST(duration, ConstructorAndParameterAccess) {
   ASSERT_DOUBLE_EQ(nzl::Duration::Years(1).seconds(), 365.25 * 24 * 60 * 60);
   ASSERT_DOUBLE_EQ(nzl::Duration::Days(1).seconds(), 24 * 60 * 60);

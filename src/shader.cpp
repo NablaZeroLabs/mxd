@@ -10,6 +10,7 @@
 #include "shader.hpp"
 
 // C++ Standard Library
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -82,23 +83,31 @@ auto check_compilation_errors(unsigned int shader_id) {
 
 namespace nzl {
 
-Shader::Shader(Shader::Stage stage, std::string source)
-    : m_id{create_shader(stage)}, m_stage{stage}, m_source{std::move(source)} {}
+struct Shader::IDContainer {
+  const unsigned int m_id;
 
-Shader::~Shader() noexcept { glDeleteShader(m_id); }
+  IDContainer(unsigned int id) noexcept : m_id{id} {}
+
+  ~IDContainer() noexcept { glDeleteShader(m_id); }
+};
+
+Shader::Shader(Shader::Stage stage, std::string source)
+    : m_id_container{std::make_shared<IDContainer>(create_shader(stage))},
+      m_stage{stage},
+      m_source{std::move(source)} {}
 
 Shader::Stage Shader::stage() const noexcept { return m_stage; }
 
 const std::string& Shader::source() const noexcept { return m_source; }
 
-unsigned int Shader::id() const noexcept { return m_id; }
+unsigned int Shader::id() const noexcept { return m_id_container->m_id; }
 
 void Shader::compile() {
   const auto source_ptr = m_source.data();
   const int source_size = m_source.size();
-  glShaderSource(m_id, 1, &source_ptr, &source_size);
-  glCompileShader(m_id);
-  check_compilation_errors(m_id);
+  glShaderSource(m_id_container->m_id, 1, &source_ptr, &source_size);
+  glCompileShader(m_id_container->m_id);
+  check_compilation_errors(m_id_container->m_id);
 }
 
 }  // namespace nzl

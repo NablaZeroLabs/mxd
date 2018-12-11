@@ -9,6 +9,7 @@
 #pragma once
 
 // C++ Standard Library
+#include <memory>
 #include <string>
 
 namespace nzl {
@@ -31,9 +32,6 @@ class Shader {
   /// @param source Source code for the shader.
   Shader(Stage stage, std::string source);
 
-  /// @brief Destroy this Shader.
-  ~Shader() noexcept;
-
   /// @brief Return the Stage in the rendering pipeline.
   Stage stage() const noexcept;
 
@@ -48,9 +46,10 @@ class Shader {
   void compile();
 
  private:
-  const unsigned int m_id;
-  const Stage m_stage;
-  const std::string m_source;
+  struct IDContainer;
+  std::shared_ptr<IDContainer> m_id_container{nullptr};
+  Stage m_stage;
+  std::string m_source;
 };
 
 }  // namespace nzl

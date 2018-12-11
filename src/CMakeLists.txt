@@ -8,7 +8,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 
-# @TODO: Some of the packages need more sophisticated methods to be found.
 find_package(OpenGL REQUIRED)
 find_package(GLEW 2.1.0 REQUIRED)
 find_package(GLFW 3.2.1 REQUIRED)
@@ -26,6 +25,7 @@ set(MXD_SOURCES
   window.cpp
   program.cpp
   duration.cpp
+  time_point.cpp
   )
 
 set(MXD_HEADERS
@@ -35,6 +35,7 @@ set(MXD_HEADERS
   window.hpp
   program.hpp
   duration.hpp
+  time_point.hpp
 )
 
 add_library(mxd
@@ -42,10 +43,6 @@ add_library(mxd
   ${MXD_HEADERS}
   )
 
-# @TODO: The point of using `find_package` is to avoid passing the raw library
-# names. We need to set the target link libraries to the name returned by
-# `find_package` (e.g., ${OPENGL_LIBRARY} is correct, but `glfw` is passing the
-# "raw" name).
 target_link_libraries(mxd
   PUBLIC
       ${GLFW_LIBRARY}
@@ -70,6 +67,7 @@ set(MXD_UNIT_TESTS
   window.t.cpp
   program.t.cpp
   duration.t.cpp
+  time_point.t.cpp
   )
 
 function(make_mxd_test source)

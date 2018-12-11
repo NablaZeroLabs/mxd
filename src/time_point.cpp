@@ -12,9 +12,6 @@
 // C++ Standard Library
 
 // mxd Library
+#include "duration.hpp"
 
-namespace nzl {
-
-
-
-}  // namespace nzl
+namespace nzl {}  // namespace nzl

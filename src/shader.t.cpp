@@ -54,6 +54,43 @@ TEST(Shader, ParameterAccessAndCompilation) {
   nzl::terminate();
 }
 
+TEST(Shader, CopyConstructor) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+  std::string source = "void main() { }";
+
+  nzl::Shader shader1(nzl::Shader::Stage::Fragment, source);
+  nzl::Shader shader2(shader1);
+  EXPECT_STREQ(shader1.source().c_str(), shader2.source().c_str());
+  EXPECT_STREQ(shader2.source().c_str(), source.c_str());
+
+  EXPECT_EQ(shader1.id(), shader2.id());
+  EXPECT_EQ(shader1.stage(), shader2.stage());
+
+  nzl::terminate();
+}
+
+TEST(Shader, CopyOperator) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+  std::string source = "void main() { }";
+
+  nzl::Shader shader1(nzl::Shader::Stage::Fragment, source);
+  nzl::Shader shader2(nzl::Shader::Stage::Vertex, "x");
+
+  shader2 = shader1;
+
+  EXPECT_STREQ(shader1.source().c_str(), shader2.source().c_str());
+  EXPECT_EQ(shader1.id(), shader2.id());
+  EXPECT_EQ(shader1.stage(), shader2.stage());
+
+  nzl::terminate();
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

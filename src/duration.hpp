@@ -19,7 +19,9 @@ class Duration {
   static Duration Minutes(double value) noexcept;
   static Duration Seconds(double value) noexcept;
 
-  /// @brief Return converted internal m_value to desired units.
+  /// @brief Default constructor building a zero-duration.
+  Duration() noexcept;
+
   double years() const noexcept;
   double days() const noexcept;
   double hours() const noexcept;
