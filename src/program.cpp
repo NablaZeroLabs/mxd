@@ -153,4 +153,9 @@ void Program::set(const std::string& name, const glm::mat2& value) const {
                      &value[0][0]);
 }
 
+void Program::set(const std::string& name, const glm::mat3& value) const {
+  glUniformMatrix3fv(m_id_container->find_uniform_location(name), 1, GL_FALSE,
+                     &value[0][0]);
+}
+
 }  // namespace nzl

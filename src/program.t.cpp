@@ -36,9 +36,10 @@ nzl::Program create_uniform_test_program() {
       "uniform vec3 testVec3;\n"
       "uniform vec4 testVec4;\n"
       "uniform mat2 testMat2;\n"
+      "uniform mat3 testMat3;\n"
       "void main() {\n"
       "vec3 pos = aPos;\n"
-      "pos*=testVec3;\n"
+      "pos*=testVec3*testMat3;\n"
       "pos.xy+=testVec2*testMat2;\n"
       "gl_Position = vec4(pos, 1.0*testFloat);\n"
       "vertexColor = vec4(0.5,0.0,0.0,1.0)*testVec4;\n}";
@@ -410,6 +411,39 @@ TEST(Program, Mat2Uniform) {
 
   for (int i = 0; i < 2; i++) {
     for (int z = 0; z < 2; z++) {
+      EXPECT_FLOAT_EQ(ret[i][z], value[i][z]);
+    }
+  }
+
+  EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+
+  nzl::terminate();
+}
+
+TEST(Program, Mat3Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testMat3";
+
+  glm::mat3 value(123.312f, 7567.4f, 1565.2f, 823.3f, 643.3f, 795.6f, 98.6f,
+                  342.5f, 396.8f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::mat3 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  3 * 3 * sizeof(float), &ret[0][0]);
+
+  for (int i = 0; i < 3; i++) {
+    for (int z = 0; z < 3; z++) {
       EXPECT_FLOAT_EQ(ret[i][z], value[i][z]);
     }
   }
