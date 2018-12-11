@@ -312,10 +312,7 @@ TEST(Program, Vec2Uniform) {
 
   std::string name = "testVec2";
 
-  glm::vec2 value(123.312f,7567.4f);
-
-
-
+  glm::vec2 value(123.312f, 7567.4f);
 
   program.use();
   ASSERT_NO_THROW(program.set(name, value););
@@ -329,7 +326,33 @@ TEST(Program, Vec2Uniform) {
   EXPECT_FLOAT_EQ(ret[0], value.x);
   EXPECT_FLOAT_EQ(ret[1], value.y);
 
+  nzl::terminate();
+}
 
+TEST(Program, Vec3Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testVec3";
+
+  glm::vec3 value(123.312f, 7567.4f, 1565.2f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::vec3 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * sizeof(float), &ret[0]);
+
+  EXPECT_FLOAT_EQ(ret.x, value.x);
+  EXPECT_FLOAT_EQ(ret.y, value.y);
+  EXPECT_FLOAT_EQ(ret.z, value.z);
 
   nzl::terminate();
 }
