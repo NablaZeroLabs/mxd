@@ -37,11 +37,12 @@ nzl::Program create_uniform_test_program() {
       "uniform vec4 testVec4;\n"
       "uniform mat2 testMat2;\n"
       "uniform mat3 testMat3;\n"
+      "uniform mat4 testMat4;\n"
       "void main() {\n"
       "vec3 pos = aPos;\n"
       "pos*=testVec3*testMat3;\n"
       "pos.xy+=testVec2*testMat2;\n"
-      "gl_Position = vec4(pos, 1.0*testFloat);\n"
+      "gl_Position = vec4(pos, 1.0*testFloat)*testMat4;\n"
       "vertexColor = vec4(0.5,0.0,0.0,1.0)*testVec4;\n}";
 
   std::string fSource =
@@ -444,6 +445,40 @@ TEST(Program, Mat3Uniform) {
 
   for (int i = 0; i < 3; i++) {
     for (int z = 0; z < 3; z++) {
+      EXPECT_FLOAT_EQ(ret[i][z], value[i][z]);
+    }
+  }
+
+  EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+
+  nzl::terminate();
+}
+
+TEST(Program, Mat4Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testMat4";
+
+  glm::mat4 value(123.312f, 7567.4f, 1565.2f, 823.3f, 643.3f, 795.6f, 98.6f,
+                  342.5f, 396.8f, 231.7f, 95343.3f, 1231234.2f, 329.1f, 1239.3f,
+                  823.31f, 902.3f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::mat4 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * 4 * sizeof(float), &ret[0][0]);
+
+  for (int i = 0; i < 4; i++) {
+    for (int z = 0; z < 4; z++) {
       EXPECT_FLOAT_EQ(ret[i][z], value[i][z]);
     }
   }

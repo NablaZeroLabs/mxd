@@ -108,6 +108,12 @@ class Program {
   /// @param value Mat3 to be set
   void set(const std::string& name, const glm::mat3& value) const;
 
+  /// @brief Sets a mat4 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Mat4 to be set
+  void set(const std::string& name, const glm::mat4& value) const;
+
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};
   std::vector<nzl::Shader> m_shaders;
