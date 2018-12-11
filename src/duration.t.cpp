@@ -23,9 +23,10 @@ TEST(Duration, DefaultConstructorIsZero) {
   ASSERT_EQ(d.days(), 0.0);
   ASSERT_EQ(d.hours(), 0.0);
   ASSERT_EQ(d.minutes(), 0.0);
+  ASSERT_EQ(d.seconds(), 0.0);
 }
 
-TEST(duration, ConstructorAndParameterAccess) {
+TEST(duration, ConstructorCreatesCorrectDurationObjects) {
   ASSERT_DOUBLE_EQ(nzl::Duration::Years(1).seconds(), 365.25 * 24 * 60 * 60);
   ASSERT_DOUBLE_EQ(nzl::Duration::Days(1).seconds(), 24 * 60 * 60);
   ASSERT_DOUBLE_EQ(nzl::Duration::Hours(1).seconds(), 60 * 60);
@@ -33,7 +34,7 @@ TEST(duration, ConstructorAndParameterAccess) {
   ASSERT_DOUBLE_EQ(nzl::Duration::Seconds(1).seconds(), 1);
 }
 
-TEST(duration, UnitConversion) {
+TEST(duration, UnitConversionMethodsWork) {
   nzl::Duration test_duration{nzl::Duration::Seconds(1000000)};
   ASSERT_DOUBLE_EQ(test_duration.years(), 1000000.0 / (365.25 * 24 * 60 * 60));
   ASSERT_DOUBLE_EQ(test_duration.days(), 1000000.0 / (24 * 60 * 60));
