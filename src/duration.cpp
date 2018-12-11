@@ -19,6 +19,7 @@ namespace nzl {
 /// @note The Duration object always stores seconds.
 Duration::Duration(double value) noexcept : m_value{value} {}
 
+/// @note The extra 0.25 in every year is because of leap years.
 Duration Duration::Years(double value) noexcept {
   return Duration(value * 86400 * 365.25);
 }
