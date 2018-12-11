@@ -357,6 +357,35 @@ TEST(Program, Vec3Uniform) {
   nzl::terminate();
 }
 
+TEST(Program, Vec4Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testVec4";
+
+  glm::vec4 value(123.312f, 7567.4f, 1565.2f, 823.3f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::vec4 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * sizeof(float), &ret[0]);
+
+  EXPECT_FLOAT_EQ(ret.x, value.x);
+  EXPECT_FLOAT_EQ(ret.y, value.y);
+  EXPECT_FLOAT_EQ(ret.z, value.z);
+  EXPECT_FLOAT_EQ(ret.w, value.w);
+
+  nzl::terminate();
+}
+
 TEST(Program, Failing) {
   ASSERT_TRUE(false) << "You must add unit tests for program.hpp";
 }
