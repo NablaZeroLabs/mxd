@@ -24,6 +24,7 @@
 // Third party libraries
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 namespace {  // anonymous namespace
 
@@ -133,6 +134,10 @@ void Program::set(const std::string& name, float x, float y, float z) const {
 void Program::set(const std::string& name, float x, float y, float z,
                   float w) const {
   glUniform4f(m_id_container->find_uniform_location(name), x, y, z, w);
+}
+
+void Program::set(const std::string& name, const glm::vec2& value) const {
+  glUniform2fv(m_id_container->find_uniform_location(name), 1, &value[0]);
 }
 
 }  // namespace nzl

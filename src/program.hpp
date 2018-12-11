@@ -15,6 +15,9 @@
 // mxd Library
 #include "shader.hpp"
 
+// Third party forward declaration only headers
+#include <glm/fwd.hpp>
+
 namespace nzl {
 
 class Program {
@@ -75,6 +78,8 @@ class Program {
   /// @param w Fourth value of the vec4 to be set
   void set(const std::string& name, float x, float y, float z, float w) const;
 
+  void set(const std::string& name, const glm::vec2& value) const;
+  
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};
   std::vector<nzl::Shader> m_shaders;

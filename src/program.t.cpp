@@ -23,6 +23,7 @@
 // Third Party Libraries
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 namespace {  // anonymous namespace
 nzl::Program create_uniform_test_program() {
@@ -297,6 +298,38 @@ TEST(Program, 4FloatUniform) {
   EXPECT_FLOAT_EQ(ret[1], val2);
   EXPECT_FLOAT_EQ(ret[2], val3);
   EXPECT_FLOAT_EQ(ret[3], val4);
+
+  nzl::terminate();
+}
+
+TEST(Program, Vec2Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testVec2";
+
+  glm::vec2 value(123.312f,7567.4f);
+
+
+
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::vec2 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * sizeof(float), &ret[0]);
+
+  EXPECT_FLOAT_EQ(ret[0], value.x);
+  EXPECT_FLOAT_EQ(ret[1], value.y);
+
+
 
   nzl::terminate();
 }
