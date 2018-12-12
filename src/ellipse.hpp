@@ -27,8 +27,9 @@ class Ellipse : public Geometry {
   /// @brief Creates an ellipse.
   /// @param rX Radius in the x direction.
   /// @param rY Radius in the y direction.
+  /// @param number_of_points Number of points to be generated for the ellipse.
   /// @param color Color the ellipse will be drawn with.
-  Ellipse(float rX, float rY, glm::vec3 color) noexcept;
+  Ellipse(float rX, float rY, int number_of_points, glm::vec3 color) noexcept;
 
   /// @brief Return the ellipse's color.
   glm::vec3 color() const noexcept;
