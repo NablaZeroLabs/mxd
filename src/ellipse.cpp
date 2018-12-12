@@ -124,18 +124,16 @@ Ellipse::Ellipse(float rX, float rY, int number_of_points,
     : m_id_container{
           std::make_shared<IDContainer>(color, rX, rY, number_of_points)} {}
 
-  glm::vec3 Ellipse::color() const noexcept{
-    return m_id_container->m_color;
-  }
+glm::vec3 Ellipse::color() const noexcept { return m_id_container->m_color; }
 
-  void Ellipse::set_color(glm::vec3 color) noexcept{
-    m_id_container->m_color = color;
-  }
+void Ellipse::set_color(glm::vec3 color) noexcept {
+  m_id_container->m_color = color;
+}
 
-  nzl::Program Ellipse::get_program() const noexcept{
-    return m_id_container->m_program;
-  }
-  
+nzl::Program Ellipse::get_program() const noexcept {
+  return m_id_container->m_program;
+}
+
 void Ellipse::do_render(TimePoint t) {
   m_id_container->m_program.use();
   m_id_container->m_program.set("color", m_id_container->m_color);
