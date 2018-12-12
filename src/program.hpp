@@ -15,6 +15,9 @@
 // mxd Library
 #include "shader.hpp"
 
+// Third party forward declaration only headers
+#include <glm/fwd.hpp>
+
 namespace nzl {
 
 class Program {
@@ -75,6 +78,43 @@ class Program {
   /// @param w Fourth value of the vec4 to be set
   void set(const std::string& name, float x, float y, float z, float w) const;
 
+  /// @brief Sets a vec2 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Vec2 to be set
+  void set(const std::string& name, const glm::vec2& value) const;
+
+  /// @brief Sets a vec3 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Vec3 to be set
+  void set(const std::string& name, const glm::vec3& value) const;
+
+  /// @brief Sets a vec4 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Vec4 to be set
+  void set(const std::string& name, const glm::vec4& value) const;
+
+  /// @brief Sets a mat2 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Mat2 to be set
+  void set(const std::string& name, const glm::mat2& value) const;
+
+  /// @brief Sets a mat3 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Mat3 to be set
+  void set(const std::string& name, const glm::mat3& value) const;
+
+  /// @brief Sets a mat4 uniform within the Program.
+  /// @throws std::runtime_error when uniform not found
+  /// @param name Name of the uniform
+  /// @param value Mat4 to be set
+  void set(const std::string& name, const glm::mat4& value) const;
+
+ private:
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};
   std::vector<nzl::Shader> m_shaders;

@@ -26,6 +26,8 @@ set(MXD_SOURCES
   program.cpp
   duration.cpp
   time_point.cpp
+  line.cpp
+  ellipse.cpp
   )
 
 set(MXD_HEADERS
@@ -36,6 +38,8 @@ set(MXD_HEADERS
   program.hpp
   duration.hpp
   time_point.hpp
+  line.hpp
+  ellipse.cpp
 )
 
 add_library(mxd
@@ -68,6 +72,8 @@ set(MXD_UNIT_TESTS
   program.t.cpp
   duration.t.cpp
   time_point.t.cpp
+  line.t.cpp
+  ellipse.t.cpp
   )
 
 function(make_mxd_test source)

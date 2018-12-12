@@ -23,6 +23,7 @@
 // Third Party Libraries
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 namespace {  // anonymous namespace
 nzl::Program create_uniform_test_program() {
@@ -34,11 +35,14 @@ nzl::Program create_uniform_test_program() {
       "uniform vec2 testVec2;\n"
       "uniform vec3 testVec3;\n"
       "uniform vec4 testVec4;\n"
+      "uniform mat2 testMat2;\n"
+      "uniform mat3 testMat3;\n"
+      "uniform mat4 testMat4;\n"
       "void main() {\n"
       "vec3 pos = aPos;\n"
-      "pos*=testVec3;\n"
-      "pos.xy+=testVec2;\n"
-      "gl_Position = vec4(pos, 1.0*testFloat);\n"
+      "pos*=testVec3*testMat3;\n"
+      "pos.xy+=testVec2*testMat2;\n"
+      "gl_Position = vec4(pos, 1.0*testFloat)*testMat4;\n"
       "vertexColor = vec4(0.5,0.0,0.0,1.0)*testVec4;\n}";
 
   std::string fSource =
@@ -301,8 +305,187 @@ TEST(Program, 4FloatUniform) {
   nzl::terminate();
 }
 
-TEST(Program, Failing) {
-  ASSERT_TRUE(false) << "You must add unit tests for program.hpp";
+TEST(Program, Vec2Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testVec2";
+
+  glm::vec2 value(123.312f, 7567.4f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::vec2 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * sizeof(float), &ret[0]);
+
+  EXPECT_FLOAT_EQ(ret[0], value.x);
+  EXPECT_FLOAT_EQ(ret[1], value.y);
+
+  nzl::terminate();
+}
+
+TEST(Program, Vec3Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testVec3";
+
+  glm::vec3 value(123.312f, 7567.4f, 1565.2f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::vec3 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * sizeof(float), &ret[0]);
+
+  EXPECT_FLOAT_EQ(ret.x, value.x);
+  EXPECT_FLOAT_EQ(ret.y, value.y);
+  EXPECT_FLOAT_EQ(ret.z, value.z);
+
+  nzl::terminate();
+}
+
+TEST(Program, Vec4Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testVec4";
+
+  glm::vec4 value(123.312f, 7567.4f, 1565.2f, 823.3f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::vec4 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * sizeof(float), &ret[0]);
+
+  EXPECT_FLOAT_EQ(ret.x, value.x);
+  EXPECT_FLOAT_EQ(ret.y, value.y);
+  EXPECT_FLOAT_EQ(ret.z, value.z);
+  EXPECT_FLOAT_EQ(ret.w, value.w);
+
+  nzl::terminate();
+}
+
+TEST(Program, Mat2Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testMat2";
+
+  glm::mat2 value(123.312f, 7567.4f, 1565.2f, 823.3f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::mat2 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  2 * 2 * sizeof(float), &ret[0][0]);
+
+  for (int i = 0; i < 2; i++) {
+    for (int z = 0; z < 2; z++) {
+      EXPECT_FLOAT_EQ(ret[i][z], value[i][z]);
+    }
+  }
+
+  EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+
+  nzl::terminate();
+}
+
+TEST(Program, Mat3Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testMat3";
+
+  glm::mat3 value(123.312f, 7567.4f, 1565.2f, 823.3f, 643.3f, 795.6f, 98.6f,
+                  342.5f, 396.8f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::mat3 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  3 * 3 * sizeof(float), &ret[0][0]);
+
+  for (int i = 0; i < 3; i++) {
+    for (int z = 0; z < 3; z++) {
+      EXPECT_FLOAT_EQ(ret[i][z], value[i][z]);
+    }
+  }
+
+  EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+
+  nzl::terminate();
+}
+
+TEST(Program, Mat4Uniform) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Program program{create_uniform_test_program()};
+
+  std::string name = "testMat4";
+
+  glm::mat4 value(123.312f, 7567.4f, 1565.2f, 823.3f, 643.3f, 795.6f, 98.6f,
+                  342.5f, 396.8f, 231.7f, 95343.3f, 1231234.2f, 329.1f, 1239.3f,
+                  823.31f, 902.3f);
+
+  program.use();
+  ASSERT_NO_THROW(program.set(name, value););
+
+  glm::mat4 ret;
+
+  glGetnUniformfv(program.id(),
+                  glGetUniformLocation(program.id(), name.c_str()),
+                  4 * 4 * sizeof(float), &ret[0][0]);
+
+  for (int i = 0; i < 4; i++) {
+    for (int z = 0; z < 4; z++) {
+      EXPECT_FLOAT_EQ(ret[i][z], value[i][z]);
+    }
+  }
+
+  EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+
+  nzl::terminate();
 }
 
 int main(int argc, char** argv) {
