@@ -114,6 +114,7 @@ class Program {
   /// @param value Mat4 to be set
   void set(const std::string& name, const glm::mat4& value) const;
 
+ private:
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};
   std::vector<nzl::Shader> m_shaders;
