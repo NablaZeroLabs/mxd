@@ -66,6 +66,7 @@ struct Line::IDContainer {
   unsigned int m_vbo_id;
   int m_number_of_points{0};
   nzl::Program m_program;
+  glm::vec3 m_color;
 
   IDContainer() : m_program{create_program()} {
     glGenVertexArrays(1, &m_vao_id);
@@ -115,31 +116,20 @@ Line::Line(glm::vec3 color, std::vector<glm::vec3> points) {
   load_points(points);
 }
 
-Line::Line(const Line& other)
-    : m_id_container{other.m_id_container},
-      m_color{std::make_unique<glm::vec3>(other.color())} {}
-
-Line& Line::operator=(const Line& other) {
-  m_id_container = other.m_id_container;
-  m_color = std::make_unique<glm::vec3>(other.color());
-
-  return *this;
-}
-
 void Line::init(glm::vec3 color) {
-  m_color = std::make_unique<glm::vec3>(color);
   m_id_container = std::make_shared<IDContainer>();
+  m_id_container->m_color = color;
 }
 
 void Line::load_points(std::vector<glm::vec3> points) {
   m_id_container->load_points(points);
 }
 
-glm::vec3 Line::color() const noexcept { return *this->m_color; }
+glm::vec3 Line::color() const noexcept { return m_id_container->m_color; }
 
 void Line::do_render(TimePoint t) {
   this->m_id_container->m_program.use();
-  m_id_container->m_program.set("color", *m_color);
+  m_id_container->m_program.set("color", m_id_container->m_color);
 
   glBindVertexArray(m_id_container->m_vao_id);
 

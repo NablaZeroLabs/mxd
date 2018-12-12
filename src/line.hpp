@@ -17,7 +17,7 @@
 #include "program.hpp"
 #include "time_point.hpp"
 
-#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
 
 namespace nzl {
 
@@ -35,12 +35,6 @@ class Line : public Geometry {
   /// @param points Points to be loaded into the VBO.
   Line(glm::vec3 color, std::vector<glm::vec3> points);
 
-  /// @brief Line copy constructor.
-  /// @note Has to make a new unique pointer to color.
-  Line(const Line& other);
-
-  Line& operator=(const Line& other);
-
   /// @brief Loads points into the line's VBO.
   /// @param points Points to be loaded into the VBO.
   /// @note Affects all copies of this object.
@@ -57,10 +51,8 @@ class Line : public Geometry {
  private:
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};
-  std::unique_ptr<glm::vec3> m_color;
 
   void do_render(TimePoint t) override;
-
   /// @brief Initializes line class.
   void init(glm::vec3 color);
 };
