@@ -28,6 +28,7 @@ set(MXD_SOURCES
   time_point.cpp
   line.cpp
   ellipse.cpp
+  linspace.cpp
   )
 
 set(MXD_HEADERS
@@ -39,7 +40,8 @@ set(MXD_HEADERS
   duration.hpp
   time_point.hpp
   line.hpp
-  ellipse.cpp
+  ellipse.hpp
+  linspace.hpp
 )
 
 add_library(mxd
@@ -74,6 +76,7 @@ set(MXD_UNIT_TESTS
   time_point.t.cpp
   line.t.cpp
   ellipse.t.cpp
+  linspace.t.cpp
   )
 
 function(make_mxd_test source)
