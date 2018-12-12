@@ -107,25 +107,33 @@ struct Line::IDContainer {
   }
 };
 
-Line::Line() { this->init(glm::vec3(1.0f, 1.0f, 1.0f)); }
+Line::Line() const noexcept { this->init(glm::vec3(1.0f, 1.0f, 1.0f)); }
 
-Line::Line(glm::vec3 color) { this->init(color); }
+Line::Line(glm::vec3 color) noexcept { this->init(color); }
 
-Line::Line(glm::vec3 color, std::vector<glm::vec3> points) {
+Line::Line(glm::vec3 color, std::vector<glm::vec3> points) noexcept {
   this->init(color);
   load_points(points);
 }
 
-void Line::init(glm::vec3 color) {
+void Line::init(glm::vec3 color) noexcept {
   m_id_container = std::make_shared<IDContainer>();
   m_id_container->m_color = color;
 }
 
-void Line::load_points(std::vector<glm::vec3> points) {
+void Line::load_points(std::vector<glm::vec3> points) noexcept {
   m_id_container->load_points(points);
 }
 
 glm::vec3 Line::color() const noexcept { return m_id_container->m_color; }
+
+void Line::set_color(glm::vec3 color) noexcept {
+  m_id_container->m_color = color;
+}
+
+nzl::Program Line::get_program() const noexcept {
+  return m_id_container->m_program;
+}
 
 void Line::do_render(TimePoint t) {
   this->m_id_container->m_program.use();

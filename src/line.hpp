@@ -1,7 +1,7 @@
 // -*- coding:utf-8; mode:c++; mode:auto-fill; fill-column:80; -*-
 
 /// @file      line.hpp
-/// @brief
+/// @brief     A a series of points that can be drawn as a line
 /// @author    F. Ayala <19fraayala@asfg.edu.mx>
 /// @date      December 11, 2018
 /// @copyright (C) 2018 Nabla Zero Labs
@@ -24,29 +24,32 @@ namespace nzl {
 class Line : public Geometry {
  public:
   /// @brief Creates line with white color.
-  Line();
+  Line() noexcept;
 
   /// @brief Creates line.
   /// @param color Line color.
-  Line(glm::vec3 color);
+  Line(glm::vec3 color) noexcept;
 
   /// @brief Creates line and loads points onto line.
   /// @param color Line color.
   /// @param points Points to be loaded into the VBO.
-  Line(glm::vec3 color, std::vector<glm::vec3> points);
+  Line(glm::vec3 color, std::vector<glm::vec3> points) noexcept;
 
   /// @brief Loads points into the line's VBO.
   /// @param points Points to be loaded into the VBO.
   /// @note Affects all copies of this object.
-  void load_points(std::vector<glm::vec3> points);
+  void load_points(std::vector<glm::vec3> points) noexcept;
 
   /// @brief Returns the line's color.
   glm::vec3 color() const noexcept;
 
   /// @brief Sets the line's color.
   /// @param color Color to be set.
-  /// @note Does not affect copies of this object.
+  /// @note Affects all copies of this object.
   void set_color(glm::vec3 color) noexcept;
+
+  /// @brief the program used by the line.
+  nzl::Program get_program() const noexcept;
 
  private:
   struct IDContainer;
@@ -54,7 +57,7 @@ class Line : public Geometry {
 
   void do_render(TimePoint t) override;
   /// @brief Initializes line class.
-  void init(glm::vec3 color);
+  void init(glm::vec3 color) noexcept;
 };
 
 }  // namespace nzl
