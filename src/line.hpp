@@ -17,6 +17,9 @@
 #include "program.hpp"
 #include "time_point.hpp"
 
+/// @TODO What benefit did you gain from acquiring a
+/// full dependency? Did you use any of the features of glm to make it
+/// worthwhile to acquire a full dependency?
 #include <glm/fwd.hpp>
 
 namespace nzl {
@@ -24,16 +27,16 @@ namespace nzl {
 class Line : public Geometry {
  public:
   /// @brief Creates line with white color.
-  Line() noexcept;
+  Line();
 
   /// @brief Creates line.
   /// @param color Line color.
-  Line(glm::vec3 color) noexcept;
+  Line(glm::vec3 color);
 
   /// @brief Creates line and loads points onto line.
   /// @param color Line color.
   /// @param points Points to be loaded into the VBO.
-  Line(glm::vec3 color, std::vector<glm::vec3> points) noexcept;
+  Line(glm::vec3 color, std::vector<glm::vec3> points);
 
   /// @brief Loads points into the line's VBO.
   /// @param points Points to be loaded into the VBO.
@@ -52,12 +55,10 @@ class Line : public Geometry {
   nzl::Program get_program() const noexcept;
 
  private:
-  struct IDContainer;
-  std::shared_ptr<IDContainer> m_id_container{nullptr};
+  struct LineImp;
+  std::shared_ptr<LineImp> m_pimpl;
 
   void do_render(TimePoint t) override;
-  /// @brief Initializes line class.
-  void init(glm::vec3 color) noexcept;
 };
 
 }  // namespace nzl
