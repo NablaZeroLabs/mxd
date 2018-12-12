@@ -21,7 +21,10 @@ namespace nzl {
 /// @tparam Q Type fo the final bound
 /// @param begin Initial bound
 /// @param end Final bound
-/// @return std::vector<T>, where @p T is the promoted type.
+/// @param n Number of points (n >= 2).
+/// @return std::vector<T>, where @p T is the promoted type, containing @p n
+/// equally-spaced points [begin, ..., end].
+/// @throws std::runtime_error if n < 2.
 /// @note To derive the promoted type, we first promote independently @p P and
 /// @p Q to at least @p float (or leave unchanged if already float or higher
 /// precision). We then find the common type of the promoted @p P and promoted
