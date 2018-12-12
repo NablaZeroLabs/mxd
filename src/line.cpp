@@ -107,7 +107,7 @@ struct Line::IDContainer {
   }
 };
 
-Line::Line() const noexcept { this->init(glm::vec3(1.0f, 1.0f, 1.0f)); }
+Line::Line() noexcept { this->init(glm::vec3(1.0f, 1.0f, 1.0f)); }
 
 Line::Line(glm::vec3 color) noexcept { this->init(color); }
 
