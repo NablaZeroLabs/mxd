@@ -34,7 +34,7 @@ TEST(Duration, ConstructorCreatesCorrectDurationObjects) {
   ASSERT_DOUBLE_EQ(nzl::Duration::Seconds(1).seconds(), 1);
 }
 
-TEST(Duration, UnitConversionMethodsWork) {
+TEST(Duration, UnitConversions) {
   nzl::Duration test_duration{nzl::Duration::Seconds(1000000)};
   ASSERT_DOUBLE_EQ(test_duration.years(), 1000000.0 / (365.25 * 24 * 60 * 60));
   ASSERT_DOUBLE_EQ(test_duration.days(), 1000000.0 / (24 * 60 * 60));
