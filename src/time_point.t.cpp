@@ -16,11 +16,11 @@
 // Google Test Framework
 #include <gtest/gtest.h>
 
-TEST( time_point, Failing ) {
-    ASSERT_TRUE( false ) << "You must add unit tests for time_point.hpp";
+TEST(TimePoint, Failing) {
+  ASSERT_TRUE(false) << "You must add unit tests for time_point.hpp";
 }
 
-int main( int argc, char** argv ) {
-  ::testing::InitGoogleTest( &argc, argv );
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
