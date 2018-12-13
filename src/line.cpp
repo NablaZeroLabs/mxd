@@ -124,6 +124,10 @@ Line::Line(glm::vec3 color, std::vector<glm::vec3> points) : Line(color) {
   m_pimpl->load_points(points);
 }
 
+void Line::load_points(std::vector<glm::vec3> points) noexcept {
+  m_pimpl->load_points(points);
+}
+
 glm::vec3 Line::color() const noexcept { return m_pimpl->color; }
 
 void Line::set_color(glm::vec3 color) noexcept { m_pimpl->color = color; }
