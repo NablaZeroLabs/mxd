@@ -52,7 +52,7 @@ class Line : public Geometry {
   void set_color(glm::vec3 color) noexcept;
 
   /// @brief the program used by the line.
-  nzl::Program get_program() const noexcept;
+  const nzl::Program& get_program() const noexcept;
 
  private:
   struct LineImp;

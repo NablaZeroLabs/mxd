@@ -121,8 +121,9 @@ glm::vec3 Line::color() const noexcept { return m_pimpl->color; }
 
 void Line::set_color(glm::vec3 color) noexcept { m_pimpl->color = color; }
 
-/// @TODO Shouldn't this return a const reference? Why are we returning a copy?
-nzl::Program Line::get_program() const noexcept { return m_pimpl->program; }
+const nzl::Program& Line::get_program() const noexcept {
+  return m_pimpl->program;
+}
 
 /// @TODO Mark unused variables! Compilation must be 100% clean with no
 /// warnings.
