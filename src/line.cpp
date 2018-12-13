@@ -33,12 +33,7 @@ const std::string vertex_shader_source =
 const std::string fragment_shader_source =
     nzl::slurp(nzl::get_env_var("MXD_SHADER_ROOT") + "/simple_shader.frag");
 
-/// @TODO This is too ugly. Program needs a full refactoring.
 auto make_program() {
-  /// @TODO The Shader/Program interface feels very awkward. For instance: why
-  /// do I need to pass a vector of shaders? Why do I need to compile the
-  /// shaders and then compile the program? Shouldn't the program compile the
-  /// shaders if it needs to? What happens if I forget to compile the shader?
   std::vector<nzl::Shader> shaders;
   shaders.emplace_back(nzl::Shader::Stage::Vertex, vertex_shader_source);
   shaders.emplace_back(nzl::Shader::Stage::Fragment, fragment_shader_source);
@@ -59,7 +54,7 @@ namespace nzl {
 struct nzl::Line::LineImp {
   LineImp();
   ~LineImp();
-  nzl::Program program;  /// @TODO Why not provide a default constructor?
+  nzl::Program program;
   unsigned int vao_id;
   unsigned int vbo_id;
   int number_of_points{0};
