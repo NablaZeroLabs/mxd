@@ -34,7 +34,7 @@ TimePoint TimePoint::DistantFuture() noexcept {
 
 TimePoint::TimePoint(Duration duration) noexcept : m_duration{duration} {}
 
-Duration TimePoint::elapsed() const noexcept { return m_duration; }
+const Duration& TimePoint::elapsed() const noexcept { return m_duration; }
 
 TimePoint& TimePoint::operator+=(const Duration& duration) {
   m_duration += duration;
@@ -80,6 +80,11 @@ bool operator>=(const TimePoint& lhs, const TimePoint& rhs) {
 
 bool operator!=(const TimePoint& lhs, const TimePoint& rhs) {
   return lhs.elapsed() != rhs.elapsed();
+}
+
+double julian_date(const TimePoint& tp) {
+  const auto J2000 = 2451545.0;
+  return tp.elapsed().days() + J2000;
 }
 
 }  // namespace nzl

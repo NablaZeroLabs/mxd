@@ -33,6 +33,16 @@ TEST(TimePoint, CreationFromJulianDate) {
   EXPECT_EQ(tp1.elapsed().days(), 1);
 }
 
+TEST(TimePoint, ConvertJulianDate) {
+  const auto J2000 = 2451545.0;
+  auto tp0 = nzl::TimePoint::Julian(J2000);
+
+  EXPECT_EQ(nzl::julian_date(tp0), J2000);
+
+  auto tp1 = nzl::TimePoint();
+  EXPECT_EQ(nzl::julian_date(tp1), J2000);
+}
+
 TEST(TimePoint, ConstructorValueIsCorrect) {
   EXPECT_DOUBLE_EQ(
       nzl::TimePoint(nzl::Duration::Minutes(100)).elapsed().minutes(), 100);
