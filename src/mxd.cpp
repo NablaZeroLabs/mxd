@@ -23,6 +23,16 @@ void initialize() {
   if (auto status = glfwInit(); status == GLFW_FALSE) {
     throw std::runtime_error("Unable to initialize GLFW");
   }
+
+  // Unfortunately we need to hard-code the maximum OpenGL version supported by
+  // macOS.
+
+#ifdef __APPLE__
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 };
 
 void terminate() noexcept { glfwTerminate(); }
