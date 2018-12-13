@@ -45,6 +45,9 @@ class Shader {
   /// @throws std::runtime_error on compilation failure.
   void compile();
 
+  /// @brief Returns whether the Shader has been compiled.
+  bool is_compiled() const noexcept;
+
  private:
   struct IDContainer;
   std::shared_ptr<IDContainer> m_id_container{nullptr};

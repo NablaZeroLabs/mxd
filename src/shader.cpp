@@ -85,6 +85,7 @@ namespace nzl {
 
 struct Shader::IDContainer {
   const unsigned int m_id;
+  bool m_compiled{false};
 
   IDContainer(unsigned int id) noexcept : m_id{id} {}
 
@@ -108,6 +109,9 @@ void Shader::compile() {
   glShaderSource(m_id_container->m_id, 1, &source_ptr, &source_size);
   glCompileShader(m_id_container->m_id);
   check_compilation_errors(m_id_container->m_id);
+  m_id_container->m_compiled = true;
 }
+
+bool Shader::is_compiled() const noexcept { return m_id_container->m_compiled; }
 
 }  // namespace nzl
