@@ -51,5 +51,8 @@ Duration operator/(const Duration& lhs, double denominator) noexcept;
 
 bool operator>(const Duration& lhs, const Duration& rhs) noexcept;
 bool operator<(const Duration& lhs, const Duration& rhs) noexcept;
+bool operator!=(const Duration& lhs, const Duration& rhs) noexcept;
+bool operator>=(const Duration& lhs, const Duration& rhs) noexcept;
+bool operator<=(const Duration& lhs, const Duration& rhs) noexcept;
 
 }  // namespace nzl
