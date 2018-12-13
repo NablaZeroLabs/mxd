@@ -65,7 +65,7 @@ struct nzl::Line::LineImp {
   int number_of_points{0};
   glm::vec3 color;
 
-  void load_points(std::vector<glm::vec3>& points);
+  void load_points(glm::vec3 points[], int size);
 };
 
 nzl::Line::LineImp::LineImp() : program{make_program()} {
@@ -89,13 +89,11 @@ nzl::Line::LineImp::~LineImp() noexcept {
   glDeleteBuffers(1, &vbo_id);
 }
 
-/// @TODO What would happen if points were a very large array? (hint: why are we
-/// not passing by reference or moving; why don't I have a point array).
-void nzl::Line::LineImp::load_points(std::vector<glm::vec3>& points) {
-  number_of_points = points.size();
+void nzl::Line::LineImp::load_points(glm::vec3 points[], int size) {
+  number_of_points = size;
   glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-  glBufferData(GL_ARRAY_BUFFER, points.size() * 3 * sizeof(float),
-               points.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, size * 3 * sizeof(float), points,
+               GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -110,11 +108,15 @@ Line::Line(glm::vec3 color) : m_pimpl{std::make_shared<Line::LineImp>()} {
 Line::Line() : Line(glm::vec3(1.0f, 1.0f, 1.0f)) {}
 
 Line::Line(glm::vec3 color, std::vector<glm::vec3>& points) : Line(color) {
-  m_pimpl->load_points(points);
+  load_points(points);
 }
 
 void Line::load_points(std::vector<glm::vec3>& points) noexcept {
-  m_pimpl->load_points(points);
+  m_pimpl->load_points(points.data(), points.size());
+}
+
+void Line::load_points(glm::vec3 points[], int size) noexcept {
+  m_pimpl->load_points(points, size);
 }
 
 glm::vec3 Line::color() const noexcept { return m_pimpl->color; }
