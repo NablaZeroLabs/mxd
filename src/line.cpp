@@ -18,6 +18,7 @@
 #include "program.hpp"
 #include "shader.hpp"
 #include "time_point.hpp"
+#include "utilities.hpp"
 
 // Third party libraries
 #include <GL/glew.h>
@@ -26,23 +27,11 @@
 
 namespace {  // anonymous namespace
 
-/// @TODO Do we really want to hard-code shader sources? What happens if we want
-/// to modify a small detail? Do we need to make a full build? Aren't Shaders
-/// regular source code?
 const std::string vertex_shader_source =
-    "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main(){\n"
-    "  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "}\n";
+    nzl::slurp("../shaders/simple_shader.vert");
 
 const std::string fragment_shader_source =
-    "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "uniform vec3 color;\n"
-    "void main(){\n"
-    "  FragColor = vec4(color, 1.0f);\n"
-    "}\n";
+    nzl::slurp("../shaders/simple_shader.frag");
 
 /// @TODO This is too ugly. Program needs a full refactoring.
 auto make_program() {
