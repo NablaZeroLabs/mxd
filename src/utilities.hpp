@@ -9,6 +9,7 @@
 #pragma once
 
 // C++ Standard Library
+#include <cstdlib>
 #include <string>
 
 namespace nzl {
@@ -18,5 +19,14 @@ namespace nzl {
 /// @return The contents of the file in a string.
 /// @throws std::system_error if the file contents cannot be read.
 std::string slurp(const std::string& path);
+
+/// @brief Returns an environment variable.
+/// @param key String used as key for the variable.
+/// @return Contents of the environment variable.
+std::string get_env_var(const std::string& key);
+
+/// @brief Checks for OpenGL errors using glGetError().
+/// @throws std::runtime_error if an error is found.
+void check_gl_errors();
 
 }  // namespace nzl

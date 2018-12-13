@@ -12,10 +12,19 @@
 // C++ Standard Library
 #include <cstdio>
 #include <fstream>
+#include <stdexcept>
 #include <system_error>
+
+// mxd library
+#include "mxd.hpp"
+#include "window.hpp"
 
 // Google Test Framework
 #include <gtest/gtest.h>
+
+// Third party libraries
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 TEST(Utilities, SlurpingMissingFileThrowsSystemError) {
   EXPECT_THROW(nzl::slurp("missing.txt"), std::system_error);
@@ -35,6 +44,18 @@ TEST(Utilities, SlurpFile) {
 
   // Remove the temporary file.
   std::remove(path.c_str());
+}
+
+TEST(Utilities, CheckGLError) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Hidden Window");
+  win.hide();
+  win.make_current();
+
+  glBindBuffer(3000, 1);
+  EXPECT_THROW(nzl::check_gl_errors(), std::runtime_error);
+
+  nzl::terminate();
 }
 
 int main(int argc, char** argv) {
