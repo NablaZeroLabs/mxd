@@ -124,7 +124,7 @@ nzl::Program Ellipse::get_program() const noexcept {
   return m_id_container->m_program;
 }
 
-void Ellipse::do_render(TimePoint t) {
+void Ellipse::do_render(TimePoint t [[maybe_unused]]) {
   m_id_container->m_program.use();
   m_id_container->m_program.set("color", m_id_container->m_color);
 

@@ -16,24 +16,26 @@ namespace nzl {
 /// @brief A Barycentric Dynamical Time.
 class TimePoint {
  public:
-  /// @brief Build a timepoint from a count of Julian days.
+  /// @brief Build a TimePoint from a count of Julian days.
   static TimePoint Julian(double days);
 
-  /// @return TimePoint whose m_duration is of negative infinity.
+  /// @return A TimePoint situated before any other TimePoint.
   static TimePoint DistantPast() noexcept;
 
-  /// @return TimePoint whose m_duration is of infinity.
+  /// @return A TimePoint situated after any other TimePoint.
   static TimePoint DistantFuture() noexcept;
 
   /// @brief Build a TimePoint.
-  /// @param duration Elapsed duration from the J2000 epoch.
-  /// @note Default constructor is a duration with value 0.
+  /// @param duration Elapsed time from the J2000 epoch (default is zero).
   TimePoint(Duration duration = Duration()) noexcept;
 
-  /// @brief Return the duration elapsed from the J2000 epoch.
-  Duration elapsed() const noexcept;
+  /// @brief Return the Duration elapsed from the J2000 epoch.
+  const Duration& elapsed() const noexcept;
 
+  /// @brief Add a Duration to this TimePoint.
   TimePoint& operator+=(const Duration& duration);
+
+  /// @brief Subtract a Duration to this TimePoint.
   TimePoint& operator-=(const Duration& duration);
 
  private:
@@ -43,7 +45,6 @@ class TimePoint {
 
 TimePoint operator+(const TimePoint& lhs, const Duration& rhs);
 TimePoint operator-(const TimePoint& lhs, const Duration& rhs);
-
 Duration operator-(const TimePoint& lhs, const TimePoint& rhs);
 
 bool operator<(const TimePoint& lhs, const TimePoint& rhs);
@@ -52,4 +53,7 @@ bool operator<=(const TimePoint& lhs, const TimePoint& rhs);
 bool operator>=(const TimePoint& lhs, const TimePoint& rhs);
 bool operator!=(const TimePoint& lhs, const TimePoint& rhs);
 
+/// @brief Return a TimePoint as a Julian date.
+/// @param tp TimePoint from which to extract the Julian date.
+double julian_date(const TimePoint& tp);
 }  // namespace nzl
