@@ -52,9 +52,30 @@ TEST(Utilities, CheckGLError) {
   win.hide();
   win.make_current();
 
+  EXPECT_NO_THROW(nzl::check_gl_errors());
+
   glBindBuffer(3000, 1);
+
   EXPECT_THROW(nzl::check_gl_errors(), std::runtime_error);
 
+  nzl::terminate();
+}
+
+TEST(Utilities, CheckGLErrorMessage) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Hidden Window");
+  win.hide();
+  win.make_current();
+
+  glBindBuffer(3000, 1);
+
+  try {
+    nzl::check_gl_errors();
+  } catch (const std::exception& e) {
+    EXPECT_STREQ(e.what(),
+                 "OpenGL errors:\n - [GL_INVALID_ENUM] An unacceptable value "
+                 "is specified for an enumerated argument.\n");
+  }
   nzl::terminate();
 }
 
