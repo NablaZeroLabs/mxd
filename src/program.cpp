@@ -98,8 +98,14 @@ Program::Program(std::vector<nzl::Shader> shaders)
     : m_id_container{std::make_shared<IDContainer>(create_program())},
       m_shaders{shaders} {}
 
+Program::Program()
+    : m_id_container{std::make_shared<IDContainer>(create_program())} {}
+
 void Program::compile() {
   for (auto&& s : m_shaders) {
+    if (!s.is_compiled()) {
+      s.compile();
+    }
     glAttachShader(m_id_container->m_id, s.id());
   }
 
@@ -110,6 +116,8 @@ void Program::compile() {
 unsigned int Program::id() const noexcept { return m_id_container->m_id; }
 
 void Program::use() const noexcept { glUseProgram(m_id_container->m_id); }
+
+void Program::add_shader(nzl::Shader& shader) { m_shaders.push_back(shader); }
 
 void Program::set(const std::string& name, bool value) const {
   glUniform1i(m_id_container->find_uniform_location(name), (int)value);
