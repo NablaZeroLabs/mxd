@@ -27,14 +27,16 @@
 
 namespace {  // anonymous namespace
 nzl::Program create_program() {
-  std::string vertSource = nzl::slurp("../shaders/simple_shader.vert");
+  const std::string vertex_shader_source =
+      nzl::slurp(nzl::get_env_var("SHADERS_PATH") + "/simple_shader.vert");
 
-  std::string fragSource = nzl::slurp("../shaders/simple_shader.vert");
+  const std::string fragment_shader_source =
+      nzl::slurp(nzl::get_env_var("SHADERS_PATH") + "/simple_shader.frag");
 
-  nzl::Shader vert_shader(nzl::Shader::Stage::Vertex, vertSource);
+  nzl::Shader vert_shader(nzl::Shader::Stage::Vertex, vertex_shader_source);
   vert_shader.compile();
 
-  nzl::Shader frag_shader(nzl::Shader::Stage::Fragment, fragSource);
+  nzl::Shader frag_shader(nzl::Shader::Stage::Fragment, fragment_shader_source);
   frag_shader.compile();
 
   std::vector<nzl::Shader> vec;

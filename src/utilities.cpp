@@ -11,6 +11,7 @@
 
 // C++ Standard Library
 #include <cerrno>
+#include <cstdlib>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -31,6 +32,16 @@ std::string slurp(const std::string& path) {
   std::ostringstream oss;
   oss << "Cannot slurp file \"" << path << "\": ";
   throw std::system_error(errno, std::system_category(), oss.str());
+}
+
+std::string get_env_var(const std::string& key) {
+  char* val;
+  val = std::getenv(key.c_str());
+  std::string ret_val = "";
+  if (val != nullptr) {
+    ret_val = val;
+  }
+  return ret_val;
 }
 
 }  // namespace nzl

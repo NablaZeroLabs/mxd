@@ -28,10 +28,10 @@
 namespace {  // anonymous namespace
 
 const std::string vertex_shader_source =
-    nzl::slurp("../shaders/simple_shader.vert");
+    nzl::slurp(nzl::get_env_var("SHADERS_PATH") + "/simple_shader.vert");
 
 const std::string fragment_shader_source =
-    nzl::slurp("../shaders/simple_shader.frag");
+    nzl::slurp(nzl::get_env_var("SHADERS_PATH") + "/simple_shader.frag");
 
 /// @TODO This is too ugly. Program needs a full refactoring.
 auto make_program() {
