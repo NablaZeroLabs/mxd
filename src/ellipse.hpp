@@ -25,11 +25,11 @@ namespace nzl {
 class Ellipse : public Geometry {
  public:
   /// @brief Creates an ellipse.
-  /// @param rX Radius in the x direction.
-  /// @param rY Radius in the y direction.
+  /// @param s_ma Length of semi-major axis.
+  /// @param s_mi Length of semi-minor axis.
   /// @param number_of_points Number of points to be generated for the ellipse.
   /// @param color Color the ellipse will be drawn with.
-  Ellipse(float rX, float rY, int number_of_points, glm::vec3 color) noexcept;
+  Ellipse(float s_ma, float s_mi, int number_of_points, glm::vec3 color);
 
   /// @brief Return the ellipse's color.
   glm::vec3 color() const noexcept;
@@ -40,11 +40,11 @@ class Ellipse : public Geometry {
   void set_color(glm::vec3 color) noexcept;
 
   /// @brief Returns the program used by the ellipse.
-  nzl::Program get_program() const noexcept;
+  const nzl::Program& get_program() const noexcept;
 
  private:
-  struct IDContainer;
-  std::shared_ptr<IDContainer> m_id_container{nullptr};
+  struct EllipseImp;
+  std::shared_ptr<EllipseImp> m_pimpl;
 
   void do_render(TimePoint t) override;
 };
