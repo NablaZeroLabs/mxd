@@ -26,8 +26,12 @@ class Program {
   /// @param shaders Shaders to be used to create this Program.
   Program(std::vector<nzl::Shader> shaders);
 
+  /// @brief Creates a Program with an empty @link Shader@endlink vector.
+  Program();
+
   /// @brief Links and compiles this Program.
   /// @throws std::runtime_error on compilation failure.
+  /// @note If a shader in the vector is not compiled, the Program compiles it.
   void compile();
 
   /// @brief Return an identifier associated with this Program.
@@ -35,6 +39,10 @@ class Program {
 
   /// @brief Calls glUseProgram() with this program's id
   void use() const noexcept;
+
+  /// @brief Adds a @link Shader@endlink to the program
+  /// @param shader Shader to be added
+  void add_shader(nzl::Shader& shader);
 
   /// @brief Sets a boolean uniform within the Program.
   /// @throws std::runtime_error when uniform not found

@@ -14,4 +14,6 @@
 // mxd Library
 #include "duration.hpp"
 
-namespace nzl {}  // namespace nzl
+namespace nzl {
+  TimePoint::TimePoint(Duration duration) noexcept{}
+}  // namespace nzl

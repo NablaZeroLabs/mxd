@@ -18,6 +18,7 @@
 #include "program.hpp"
 #include "shader.hpp"
 #include "time_point.hpp"
+#include "utilities.hpp"
 
 // Third party libraries
 #include <GL/glew.h>
@@ -26,20 +27,9 @@
 
 namespace {  // anonymous namespace
 nzl::Program create_program() {
-  std::string vertSource =
-      "#version 330 core\n"
-      "layout (location = 0) in vec3 aPos;\n"
-      "void main(){\n"
-      "  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-      "}\n";
+  std::string vertSource = nzl::slurp("../shaders/simple_shader.vert");
 
-  std::string fragSource =
-      "#version 330 core\n"
-      "out vec4 FragColor;\n"
-      "uniform vec3 color;\n"
-      "void main(){\n"
-      "  FragColor = vec4(color, 1.0f);\n"
-      "}\n";
+  std::string fragSource = nzl::slurp("../shaders/simple_shader.vert");
 
   nzl::Shader vert_shader(nzl::Shader::Stage::Vertex, vertSource);
   vert_shader.compile();
@@ -124,18 +114,16 @@ Ellipse::Ellipse(float rX, float rY, int number_of_points,
     : m_id_container{
           std::make_shared<IDContainer>(color, rX, rY, number_of_points)} {}
 
-  glm::vec3 Ellipse::color() const noexcept{
-    return m_id_container->m_color;
-  }
+glm::vec3 Ellipse::color() const noexcept { return m_id_container->m_color; }
 
-  void Ellipse::set_color(glm::vec3 color) noexcept{
-    m_id_container->m_color = color;
-  }
+void Ellipse::set_color(glm::vec3 color) noexcept {
+  m_id_container->m_color = color;
+}
 
-  nzl::Program Ellipse::get_program() const noexcept{
-    return m_id_container->m_program;
-  }
-  
+nzl::Program Ellipse::get_program() const noexcept {
+  return m_id_container->m_program;
+}
+
 void Ellipse::do_render(TimePoint t) {
   m_id_container->m_program.use();
   m_id_container->m_program.set("color", m_id_container->m_color);

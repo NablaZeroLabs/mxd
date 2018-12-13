@@ -18,6 +18,7 @@
 #include "program.hpp"
 #include "shader.hpp"
 #include "time_point.hpp"
+#include "utilities.hpp"
 
 // Third party libraries
 #include <GL/glew.h>
@@ -26,23 +27,11 @@
 
 namespace {  // anonymous namespace
 
-/// @TODO Do we really want to hard-code shader sources? What happens if we want
-/// to modify a small detail? Do we need to make a full build? Aren't Shaders
-/// regular source code?
 const std::string vertex_shader_source =
-    "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main(){\n"
-    "  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "}\n";
+    nzl::slurp("../shaders/simple_shader.vert");
 
 const std::string fragment_shader_source =
-    "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "uniform vec3 color;\n"
-    "void main(){\n"
-    "  FragColor = vec4(color, 1.0f);\n"
-    "}\n";
+    nzl::slurp("../shaders/simple_shader.frag");
 
 /// @TODO This is too ugly. Program needs a full refactoring.
 auto make_program() {
@@ -76,7 +65,7 @@ struct nzl::Line::LineImp {
   int number_of_points{0};
   glm::vec3 color;
 
-  void load_points(std::vector<glm::vec3> points);
+  void load_points(std::vector<glm::vec3>& points);
 };
 
 nzl::Line::LineImp::LineImp() : program{make_program()} {
@@ -102,7 +91,7 @@ nzl::Line::LineImp::~LineImp() noexcept {
 
 /// @TODO What would happen if points were a very large array? (hint: why are we
 /// not passing by reference or moving; why don't I have a point array).
-void nzl::Line::LineImp::load_points(std::vector<glm::vec3> points) {
+void nzl::Line::LineImp::load_points(std::vector<glm::vec3>& points) {
   number_of_points = points.size();
   glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
   glBufferData(GL_ARRAY_BUFFER, points.size() * 3 * sizeof(float),
@@ -120,7 +109,11 @@ Line::Line(glm::vec3 color) : m_pimpl{std::make_shared<Line::LineImp>()} {
 
 Line::Line() : Line(glm::vec3(1.0f, 1.0f, 1.0f)) {}
 
-Line::Line(glm::vec3 color, std::vector<glm::vec3> points) : Line(color) {
+Line::Line(glm::vec3 color, std::vector<glm::vec3>& points) : Line(color) {
+  m_pimpl->load_points(points);
+}
+
+void Line::load_points(std::vector<glm::vec3>& points) noexcept {
   m_pimpl->load_points(points);
 }
 
@@ -128,8 +121,9 @@ glm::vec3 Line::color() const noexcept { return m_pimpl->color; }
 
 void Line::set_color(glm::vec3 color) noexcept { m_pimpl->color = color; }
 
-/// @TODO Shouldn't this return a const reference? Why are we returning a copy?
-nzl::Program Line::get_program() const noexcept { return m_pimpl->program; }
+const nzl::Program& Line::get_program() const noexcept {
+  return m_pimpl->program;
+}
 
 /// @TODO Mark unused variables! Compilation must be 100% clean with no
 /// warnings.
