@@ -38,12 +38,6 @@ TEST(TimePoint, ConstructorValueIsCorrect) {
       nzl::TimePoint(nzl::Duration::Minutes(100)).elapsed().minutes(), 100);
 }
 
-TEST(TimePoint, JulianDayConstructorEqualsDayDuration) {
-  EXPECT_DOUBLE_EQ(
-      nzl::TimePoint::Julian(365).elapsed().seconds(),
-      nzl::TimePoint(nzl::Duration::Days(365)).elapsed().seconds());
-}
-
 TEST(TimePoint, NoValueLessThanDistantPast) {
   nzl::TimePoint infinite_past = nzl::TimePoint::DistantPast();
   double min_value = std::numeric_limits<double>::min();
