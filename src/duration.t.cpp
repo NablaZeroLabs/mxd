@@ -26,7 +26,7 @@ TEST(Duration, DefaultConstructorIsZero) {
   ASSERT_EQ(d.seconds(), 0.0);
 }
 
-TEST(duration, ConstructorCreatesCorrectDurationObjects) {
+TEST(Duration, ConstructorCreatesCorrectDurationObjects) {
   ASSERT_DOUBLE_EQ(nzl::Duration::Years(1).seconds(), 365.25 * 24 * 60 * 60);
   ASSERT_DOUBLE_EQ(nzl::Duration::Days(1).seconds(), 24 * 60 * 60);
   ASSERT_DOUBLE_EQ(nzl::Duration::Hours(1).seconds(), 60 * 60);
@@ -34,7 +34,7 @@ TEST(duration, ConstructorCreatesCorrectDurationObjects) {
   ASSERT_DOUBLE_EQ(nzl::Duration::Seconds(1).seconds(), 1);
 }
 
-TEST(duration, UnitConversionMethodsWork) {
+TEST(Duration, UnitConversions) {
   nzl::Duration test_duration{nzl::Duration::Seconds(1000000)};
   ASSERT_DOUBLE_EQ(test_duration.years(), 1000000.0 / (365.25 * 24 * 60 * 60));
   ASSERT_DOUBLE_EQ(test_duration.days(), 1000000.0 / (24 * 60 * 60));
@@ -43,33 +43,33 @@ TEST(duration, UnitConversionMethodsWork) {
   ASSERT_DOUBLE_EQ(test_duration.seconds(), 1000000.0);
 }
 
-TEST(duration, PlusEqualOperator) {
+TEST(Duration, PlusEqualOperator) {
   nzl::Duration ten_day_duration{nzl::Duration::Days(10)};
   nzl::Duration twenty_day_duration{nzl::Duration::Days(20)};
 
   ASSERT_DOUBLE_EQ((ten_day_duration += twenty_day_duration).days(), 30.0);
 }
 
-TEST(duration, MinusEqualOperator) {
+TEST(Duration, MinusEqualOperator) {
   nzl::Duration ten_day_duration{nzl::Duration::Days(10)};
   nzl::Duration twenty_day_duration{nzl::Duration::Days(20)};
 
   ASSERT_DOUBLE_EQ((ten_day_duration -= twenty_day_duration).days(), -10.0);
 }
 
-TEST(duration, TimesEqualOperator) {
+TEST(Duration, TimesEqualOperator) {
   nzl::Duration ten_day_duration{nzl::Duration::Days(10)};
 
   ASSERT_DOUBLE_EQ((ten_day_duration *= 20).days(), 200.0);
 }
 
-TEST(duration, OverEqualOperator) {
+TEST(Duration, OverEqualOperator) {
   nzl::Duration ten_day_duration{nzl::Duration::Days(10)};
 
   ASSERT_DOUBLE_EQ((ten_day_duration /= 20).days(), 0.5);
 }
 
-TEST(duration, AlgebraicOperators) {
+TEST(Duration, AlgebraicOperators) {
   nzl::Duration ten_day_duration{nzl::Duration::Days(10)};
   nzl::Duration twenty_day_duration{nzl::Duration::Days(20)};
 
@@ -79,7 +79,7 @@ TEST(duration, AlgebraicOperators) {
   ASSERT_DOUBLE_EQ((ten_day_duration / 20).days(), 0.5);
 }
 
-TEST(duration, BooleanOperators) {
+TEST(Duration, BooleanOperators) {
   nzl::Duration bigger_duration{nzl::Duration::Years(1)};
   nzl::Duration lesser_duration{nzl::Duration::Seconds(60)};
   nzl::Duration equal_duration{nzl::Duration::Minutes(1)};
