@@ -25,4 +25,8 @@ std::string slurp(const std::string& path);
 /// @return Contents of the environment variable.
 std::string get_env_var(const std::string& key);
 
+/// @brief Checks for OpenGL errors using glGetError().
+/// @throws std::runtime_error if an error is found.
+void check_gl_errors();
+
 }  // namespace nzl
