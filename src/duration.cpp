@@ -100,4 +100,16 @@ bool operator<(const Duration& lhs, const Duration& rhs) noexcept {
   return lhs.seconds() < rhs.seconds();
 }
 
+bool operator!=(const Duration& lhs, const Duration& rhs) noexcept {
+  return lhs.seconds() != rhs.seconds();
+}
+
+bool operator>=(const Duration& lhs, const Duration& rhs) noexcept {
+  return lhs.seconds() >= rhs.seconds();
+}
+
+bool operator<=(const Duration& lhs, const Duration& rhs) noexcept {
+  return lhs.seconds() <= rhs.seconds();
+}
+
 }  // namespace nzl
