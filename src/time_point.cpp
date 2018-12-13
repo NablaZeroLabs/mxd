@@ -16,7 +16,7 @@
 #include "duration.hpp"
 
 namespace nzl {
-
+  
 TimePoint TimePoint::Julian(double days) {
   return TimePoint{Duration::Days(days)};
 }

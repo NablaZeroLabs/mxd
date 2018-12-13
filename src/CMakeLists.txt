@@ -29,6 +29,7 @@ set(MXD_SOURCES
   line.cpp
   ellipse.cpp
   linspace.cpp
+  utilities.cpp
   )
 
 set(MXD_HEADERS
@@ -42,6 +43,7 @@ set(MXD_HEADERS
   line.hpp
   ellipse.hpp
   linspace.hpp
+  utilities.hpp
 )
 
 add_library(mxd
@@ -77,6 +79,7 @@ set(MXD_UNIT_TESTS
   line.t.cpp
   ellipse.t.cpp
   linspace.t.cpp
+  utilities.t.cpp
   )
 
 function(make_mxd_test source)
