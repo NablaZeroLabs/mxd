@@ -26,7 +26,7 @@ TEST(Duration, DefaultConstructorIsZero) {
   ASSERT_EQ(d.seconds(), 0.0);
 }
 
-TEST(duration, ConstructorCreatesCorrectDurationObjects) {
+TEST(Duration, ConstructorCreatesCorrectDurationObjects) {
   EXPECT_DOUBLE_EQ(nzl::Duration::Years(1).seconds(), 365.25 * 24 * 60 * 60);
   EXPECT_DOUBLE_EQ(nzl::Duration::Days(1).seconds(), 24 * 60 * 60);
   EXPECT_DOUBLE_EQ(nzl::Duration::Hours(1).seconds(), 60 * 60);
@@ -90,7 +90,7 @@ TEST(Duration, BooleanOperators) {
   EXPECT_FALSE(lesser_duration > bigger_duration);
 }
 
-TEST(duration, GreaterThanOrEqualOperator) {
+TEST(Duration, GreaterThanOrEqualOperator) {
   nzl::Duration bigger_duration{nzl::Duration::Years(1)};
   nzl::Duration lesser_duration{nzl::Duration::Days(10)};
   nzl::Duration almost_bigger_duration{nzl::Duration::Years(0.999999)};
@@ -101,7 +101,7 @@ TEST(duration, GreaterThanOrEqualOperator) {
   EXPECT_TRUE(bigger_duration >= bigger_duration);
 }
 
-TEST(duration, LessThanOrEqualOperator) {
+TEST(Duration, LessThanOrEqualOperator) {
   nzl::Duration bigger_duration{nzl::Duration::Years(1)};
   nzl::Duration lesser_duration{nzl::Duration::Days(10)};
   nzl::Duration almost_lesser_duration{nzl::Duration::Years(1.0000001)};
@@ -112,7 +112,7 @@ TEST(duration, LessThanOrEqualOperator) {
   EXPECT_TRUE(bigger_duration <= bigger_duration);
 }
 
-TEST(duration, NotEqualOperator) {
+TEST(Duration, NotEqualOperator) {
   nzl::Duration duration{nzl::Duration::Years(1)};
   nzl::Duration different_duration{nzl::Duration::Days(1)};
 

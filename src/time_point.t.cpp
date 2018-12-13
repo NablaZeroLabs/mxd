@@ -19,62 +19,62 @@
 /// @note included std limits for DistantPast & DistantFuture tests.
 #include <limits>
 
-TEST(time_point, ConstructorDefaultIsZero) {
+TEST(Time_point, ConstructorDefaultIsZero) {
   ASSERT_EQ(nzl::TimePoint().elapsed().seconds(), 0.0);
 }
 
-TEST(time_point, ConstructorValueIsCorrect) {
+TEST(Time_point, ConstructorValueIsCorrect) {
   ASSERT_DOUBLE_EQ(
       nzl::TimePoint(nzl::Duration::Minutes(100)).elapsed().minutes(), 100);
 }
 
-TEST(time_point, JulianDayConstructorEqualsDayDuration) {
+TEST(Time_point, JulianDayConstructorEqualsDayDuration) {
   ASSERT_DOUBLE_EQ(
       nzl::TimePoint::Julian(365).elapsed().seconds(),
       nzl::TimePoint(nzl::Duration::Days(365)).elapsed().seconds());
 }
 
-TEST(time_point, NoValueLessThanDistantPast) {
+TEST(Time_point, NoValueLessThanDistantPast) {
   nzl::TimePoint infinite_past = nzl::TimePoint::DistantPast();
   double min_value = std::numeric_limits<double>::min();
 
   ASSERT_TRUE(infinite_past.elapsed().seconds() < min_value);
 }
 
-TEST(time_point, NoValueGreaterThanDistantFuture) {
+TEST(Time_point, NoValueGreaterThanDistantFuture) {
   nzl::TimePoint infinite_future = nzl::TimePoint::DistantFuture();
   double max_value = std::numeric_limits<double>::max();
 
   ASSERT_TRUE(infinite_future.elapsed().seconds() > max_value);
 }
 
-TEST(time_point, PlusEqualOperatorWorks) {
+TEST(Time_point, PlusEqualOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
   ASSERT_DOUBLE_EQ((j200_epoch += ten_seconds).elapsed().seconds(), 10.0);
 }
 
-TEST(time_point, MinusEqualOperatorWorks) {
+TEST(Time_point, MinusEqualOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
   ASSERT_DOUBLE_EQ((j200_epoch -= ten_seconds).elapsed().seconds(), -10.0);
 }
 
-TEST(time_point, PlusOperatorWorks) {
+TEST(Time_point, PlusOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
 
   ASSERT_DOUBLE_EQ((j200_epoch + ten_seconds).elapsed().seconds(), 10.0);
 }
 
-TEST(time_point, MinusOperatorWorks) {
+TEST(Time_point, MinusOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
 
   ASSERT_DOUBLE_EQ((j200_epoch - ten_seconds).elapsed().seconds(), -10.0);
 }
 
-TEST(time_point, TimePointDifferenceOperatorWorks) {
+TEST(Time_point, TimePointDifferenceOperatorWorks) {
   nzl::TimePoint two_days_after_j200 = nzl::TimePoint(nzl::Duration::Days(2));
   nzl::TimePoint thousand_minutes_after_j200 =
       nzl::TimePoint(nzl::Duration::Minutes(1000));
@@ -87,7 +87,7 @@ TEST(time_point, TimePointDifferenceOperatorWorks) {
       (1000.0 - 2 * 24 * 60));
 }
 
-TEST(time_point, NotEqualOperatorWorks) {
+TEST(Time_point, NotEqualOperatorWorks) {
   nzl::TimePoint time_point = nzl::TimePoint::Julian(1000);
   nzl::TimePoint different_time_point = nzl::TimePoint::Julian(999);
 
@@ -95,7 +95,7 @@ TEST(time_point, NotEqualOperatorWorks) {
   EXPECT_FALSE(time_point != time_point);
 }
 
-TEST(time_point, LessThanOperator) {
+TEST(Time_point, LessThanOperator) {
   nzl::TimePoint big_time_point{nzl::TimePoint::Julian(1000)};
   nzl::TimePoint small_time_point{nzl::TimePoint::Julian(10)};
   nzl::TimePoint almost_big_time_point{nzl::TimePoint::Julian(999.9999)};
@@ -106,7 +106,7 @@ TEST(time_point, LessThanOperator) {
   EXPECT_FALSE(big_time_point < big_time_point);
 }
 
-TEST(time_point, GreaterThanOperator) {
+TEST(Time_point, GreaterThanOperator) {
   nzl::TimePoint big_time_point{nzl::TimePoint::Julian(1000)};
   nzl::TimePoint small_time_point{nzl::TimePoint::Julian(10)};
   nzl::TimePoint almost_big_time_point{nzl::TimePoint::Julian(999.9999)};
@@ -117,7 +117,7 @@ TEST(time_point, GreaterThanOperator) {
   EXPECT_FALSE(big_time_point > big_time_point);
 }
 
-TEST(time_point, LessThanOrEqualOperator) {
+TEST(Time_point, LessThanOrEqualOperator) {
   nzl::TimePoint big_time_point{nzl::TimePoint::Julian(1000)};
   nzl::TimePoint small_time_point{nzl::TimePoint::Julian(10)};
   nzl::TimePoint almost_big_time_point{nzl::TimePoint::Julian(999.9999)};
@@ -128,7 +128,7 @@ TEST(time_point, LessThanOrEqualOperator) {
   EXPECT_TRUE(big_time_point <= big_time_point);
 }
 
-TEST(time_point, GreaterThanOrEqualOperator) {
+TEST(Time_point, GreaterThanOrEqualOperator) {
   nzl::TimePoint big_time_point{nzl::TimePoint::Julian(1000)};
   nzl::TimePoint small_time_point{nzl::TimePoint::Julian(10)};
   nzl::TimePoint almost_big_time_point{nzl::TimePoint::Julian(999.9999)};
