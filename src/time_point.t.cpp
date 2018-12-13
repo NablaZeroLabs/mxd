@@ -20,16 +20,26 @@
 #include <limits>
 
 TEST(TimePoint, ConstructorDefaultIsZero) {
-  ASSERT_EQ(nzl::TimePoint().elapsed().seconds(), 0.0);
+  EXPECT_EQ(nzl::TimePoint().elapsed().seconds(), 0.0);
+}
+
+TEST(TimePoint, CreationFromJulianDate) {
+  // 2451545.0 is the Julian date of the Epoch of J2000.
+  auto tp0 = nzl::TimePoint::Julian(2451545.0);
+  EXPECT_EQ(tp0.elapsed().seconds(), 0);
+
+  // one day after the epoch
+  auto tp1 = nzl::TimePoint::Julian(2451546.0);
+  EXPECT_EQ(tp1.elapsed().days(), 1);
 }
 
 TEST(TimePoint, ConstructorValueIsCorrect) {
-  ASSERT_DOUBLE_EQ(
+  EXPECT_DOUBLE_EQ(
       nzl::TimePoint(nzl::Duration::Minutes(100)).elapsed().minutes(), 100);
 }
 
 TEST(TimePoint, JulianDayConstructorEqualsDayDuration) {
-  ASSERT_DOUBLE_EQ(
+  EXPECT_DOUBLE_EQ(
       nzl::TimePoint::Julian(365).elapsed().seconds(),
       nzl::TimePoint(nzl::Duration::Days(365)).elapsed().seconds());
 }
@@ -38,40 +48,40 @@ TEST(TimePoint, NoValueLessThanDistantPast) {
   nzl::TimePoint infinite_past = nzl::TimePoint::DistantPast();
   double min_value = std::numeric_limits<double>::min();
 
-  ASSERT_TRUE(infinite_past.elapsed().seconds() < min_value);
+  EXPECT_TRUE(infinite_past.elapsed().seconds() < min_value);
 }
 
 TEST(TimePoint, NoValueGreaterThanDistantFuture) {
   nzl::TimePoint infinite_future = nzl::TimePoint::DistantFuture();
   double max_value = std::numeric_limits<double>::max();
 
-  ASSERT_TRUE(infinite_future.elapsed().seconds() > max_value);
+  EXPECT_TRUE(infinite_future.elapsed().seconds() > max_value);
 }
 
 TEST(TimePoint, PlusEqualOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
-  ASSERT_DOUBLE_EQ((j200_epoch += ten_seconds).elapsed().seconds(), 10.0);
+  EXPECT_DOUBLE_EQ((j200_epoch += ten_seconds).elapsed().seconds(), 10.0);
 }
 
 TEST(TimePoint, MinusEqualOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
-  ASSERT_DOUBLE_EQ((j200_epoch -= ten_seconds).elapsed().seconds(), -10.0);
+  EXPECT_DOUBLE_EQ((j200_epoch -= ten_seconds).elapsed().seconds(), -10.0);
 }
 
 TEST(TimePoint, PlusOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
 
-  ASSERT_DOUBLE_EQ((j200_epoch + ten_seconds).elapsed().seconds(), 10.0);
+  EXPECT_DOUBLE_EQ((j200_epoch + ten_seconds).elapsed().seconds(), 10.0);
 }
 
 TEST(TimePoint, MinusOperatorWorks) {
   nzl::TimePoint j200_epoch = nzl::TimePoint();
   nzl::Duration ten_seconds = nzl::Duration::Seconds(10);
 
-  ASSERT_DOUBLE_EQ((j200_epoch - ten_seconds).elapsed().seconds(), -10.0);
+  EXPECT_DOUBLE_EQ((j200_epoch - ten_seconds).elapsed().seconds(), -10.0);
 }
 
 TEST(TimePoint, TimePointDifferenceOperatorWorks) {
