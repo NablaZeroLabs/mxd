@@ -36,12 +36,12 @@ class Line : public Geometry {
   /// @brief Creates line and loads points onto line.
   /// @param color Line color.
   /// @param points Points to be loaded into the VBO.
-  Line(glm::vec3 color, std::vector<glm::vec3> points);
+  Line(glm::vec3 color, std::vector<glm::vec3>& points);
 
   /// @brief Loads points into the line's VBO.
   /// @param points Points to be loaded into the VBO.
   /// @note Affects all copies of this object.
-  void load_points(std::vector<glm::vec3> points) noexcept;
+  void load_points(std::vector<glm::vec3>& points) noexcept;
 
   /// @brief Returns the line's color.
   glm::vec3 color() const noexcept;
