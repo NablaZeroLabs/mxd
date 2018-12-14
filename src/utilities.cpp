@@ -75,10 +75,15 @@ std::string slurp(const std::string& path) {
 std::string get_env_var(const std::string& key) {
   char* val;
   val = std::getenv(key.c_str());
-  std::string ret_val = "";
-  if (val != nullptr) {
-    ret_val = val;
+
+  if (val == nullptr) {
+    std::ostringstream oss;
+    oss << "Unable to find environment variable: " << key;
+    throw std::runtime_error(oss.str());
   }
+
+  std::string ret_val = val;
+
   return ret_val;
 }
 
