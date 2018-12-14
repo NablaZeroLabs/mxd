@@ -17,22 +17,37 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+namespace {  // anonymous namespace
+/// @brief Checks if the passed gl version is supported, demotes it if not.
+void demote_gl_version(int major, int minor) {
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
+
+  GLFWwindow* window =
+      glfwCreateWindow(640, 480, "Test GL Version", nullptr, nullptr);
+
+  if (window == nullptr) {
+    minor--;
+    if (minor < 0) {
+      major--;
+      minor = 3;
+    }
+    demote_gl_version(major, minor);
+  } else {
+    glfwDestroyWindow(window);
+  }
+}
+}  // anonymous namespace
+
 namespace nzl {
 
 void initialize() {
   if (auto status = glfwInit(); status == GLFW_FALSE) {
     throw std::runtime_error("Unable to initialize GLFW");
   }
-
-  // Unfortunately we need to hard-code the maximum OpenGL version supported by
-  // macOS.
-
-#ifdef __APPLE__
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+  demote_gl_version(4, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
 };
 
 void terminate() noexcept { glfwTerminate(); }
