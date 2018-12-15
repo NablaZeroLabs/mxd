@@ -24,7 +24,7 @@ TEST(Shader, ParameterAccessAndCompilation) {
   win.hide();
   win.make_current();
 
-  std::string source = "void main() { }";
+  std::string source = "#version 330 core\nvoid main() { }";
   auto stage = nzl::Shader::Stage::Fragment;
 
   nzl::Shader shader(stage, source);
