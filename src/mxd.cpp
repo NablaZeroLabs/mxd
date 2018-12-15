@@ -45,9 +45,9 @@ void initialize() {
   if (auto status = glfwInit(); status == GLFW_FALSE) {
     throw std::runtime_error("Unable to initialize GLFW");
   }
-  demote_gl_version(4, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  demote_gl_version(4, 3);
 };
 
 void terminate() noexcept { glfwTerminate(); }
