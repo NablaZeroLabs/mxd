@@ -119,6 +119,10 @@ void Program::use() const noexcept { glUseProgram(m_id_container->m_id); }
 
 void Program::add_shader(nzl::Shader& shader) { m_shaders.push_back(shader); }
 
+void Program::emplace_shader(nzl::Shader::Stage stage, std::string source) {
+  m_shaders.emplace_back(stage, source);
+}
+
 void Program::set(const std::string& name, bool value) const {
   glUniform1i(m_id_container->find_uniform_location(name), (int)value);
 }
