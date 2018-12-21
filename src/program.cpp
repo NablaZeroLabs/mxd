@@ -47,9 +47,14 @@ auto create_program() {
   nzl::requires_current_context();
 
   if (auto id = glCreateProgram(); id == 0) {
-    /// @TODO: Add a more extensive error message.
     std::ostringstream oss;
-    oss << "Error creating Program object";
+    oss << "Error creating Program object: ";
+
+    if (glfwGetCurrentContext() == nullptr) {
+      oss << "OpenGL context non-existent";
+    } else {
+      oss << "Unknown error";
+    }
     throw std::runtime_error(oss.str());
   } else {
     return id;
