@@ -12,7 +12,4 @@
 
 // mxd Library
 
-namespace nzl {
-
-
-}  // namespace nzl
+namespace nzl {}  // namespace nzl

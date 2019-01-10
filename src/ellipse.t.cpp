@@ -31,7 +31,7 @@ TEST(Ellipse, ConstructorAndParameterAccess) {
   win.hide();
   win.make_current();
 
-  nzl::Ellipse ellipse(0.1f, 0.9f, 40, glm::vec3(1.0f,0.0f,0.0f));
+  nzl::Ellipse ellipse(0.1f, 0.9f, 40, glm::vec3(1.0f, 0.0f, 0.0f));
 
   EXPECT_FLOAT_EQ(ellipse.color().x, 1.0f);
   EXPECT_FLOAT_EQ(ellipse.color().y, 0.0f);
@@ -44,16 +44,16 @@ TEST(Ellipse, ConstructorAndParameterAccess) {
   nzl::terminate();
 }
 
-TEST(Ellipse, Draw){
+TEST(Ellipse, Draw) {
   nzl::initialize();
-  nzl::Window win(600,600, "Test Window");
+  nzl::Window win(600, 600, "Test Window");
   win.hide();
   win.make_current();
 
-  nzl::Ellipse ellipse(0.1f, 0.9f, 40, glm::vec3(1.0f,0.0f,0.0f));
+  nzl::Ellipse ellipse(0.1f, 0.9f, 40, glm::vec3(1.0f, 0.0f, 0.0f));
 
-  for(int i = 0; i < 3; i++){
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+  for (int i = 0; i < 3; i++) {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     ellipse.render(nzl::TimePoint());
@@ -64,7 +64,7 @@ TEST(Ellipse, Draw){
   EXPECT_EQ(glGetError(), 0);
 }
 
-int main( int argc, char** argv ) {
-  ::testing::InitGoogleTest( &argc, argv );
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
