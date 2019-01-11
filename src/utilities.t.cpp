@@ -11,8 +11,10 @@
 
 // C++ Standard Library
 #include <cstdio>
+#include <cstdlib>
 #include <fstream>
 #include <stdexcept>
+#include <string>
 #include <system_error>
 
 // mxd library
@@ -44,6 +46,15 @@ TEST(Utilities, SlurpFile) {
 
   // Remove the temporary file.
   std::remove(path.c_str());
+}
+
+TEST(Utilities, EnvVarShaderRootSet) {
+  ASSERT_NO_THROW(nzl::get_env_var("MXD_SHADER_ROOT"));
+}
+
+TEST(Utilities, EnvVarNotFound) {
+  ASSERT_THROW(nzl::get_env_var("MXD_TEST_ENV_VAR_NOT_FOUND"),
+               std::runtime_error);
 }
 
 TEST(Utilities, CheckGLError) {

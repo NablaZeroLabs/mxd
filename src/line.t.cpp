@@ -37,6 +37,12 @@ TEST(Line, ConstructorAndParameterAccess) {
   EXPECT_FLOAT_EQ(line.color().y, 0.5f);
   EXPECT_FLOAT_EQ(line.color().z, 0.3f);
 
+  line.set_color(glm::vec3(1.0f, 0.3f, 0.1f));
+
+  EXPECT_FLOAT_EQ(line.color().x, 1.0f);
+  EXPECT_FLOAT_EQ(line.color().y, 0.3f);
+  EXPECT_FLOAT_EQ(line.color().z, 0.1f);
+
   EXPECT_NE(line.get_program().id(), 0);
 
   EXPECT_EQ(glGetError(), 0);
@@ -91,6 +97,34 @@ TEST(Line, DrawAndReplacePoints) {
   points.emplace_back(1.0f, 1.0f, 0.0f);
 
   line.load_points(points2);
+
+  for (int i = 0; i < 3; i++) {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    line.render(nzl::TimePoint());
+
+    win.swap_buffers();
+  }
+  EXPECT_EQ(glGetError(), 0);
+
+  nzl::terminate();
+}
+
+TEST(Line, DrawFromArray) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Test Window");
+  win.hide();
+  win.make_current();
+
+  nzl::Line line;
+
+  glm::vec3 arr[3];
+
+  arr[0] = glm::vec3(-1.0f, 1.0f, 0.0f);
+  arr[1] = glm::vec3(1.0f, -1.0f, 0.0f);
+  arr[2] = glm::vec3(0.5f, 1.0f, 0.0f);
+  line.load_points(arr, 3);
 
   for (int i = 0; i < 3; i++) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

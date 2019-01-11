@@ -36,6 +36,20 @@ TEST(Window, InitializeWindow) {
   nzl::terminate();
 }
 
+TEST(Window, SwapBuffers) {
+  ASSERT_NO_THROW(nzl::initialize());
+
+  ASSERT_NO_THROW(nzl::Window win(800, 600, "Invisible Window"));
+  nzl::Window win(800, 600, "Invisible Window");
+
+  EXPECT_NO_THROW(win.hide());
+  EXPECT_NO_THROW(win.make_current());
+
+  EXPECT_NO_THROW(win.swap_buffers());
+
+  nzl::terminate();
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

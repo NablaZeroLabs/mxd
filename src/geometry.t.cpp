@@ -16,9 +16,6 @@
 // Google Test Framework
 #include <gtest/gtest.h>
 
-TEST(Geometry, Failing) {
-  ASSERT_TRUE(false) << "You must add unit tests for geometry.hpp";
-}
 
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);

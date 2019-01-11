@@ -113,6 +113,69 @@ TEST(Program, ParameterAccessAndCompilation) {
   nzl::terminate();
 }
 
+TEST(Program, CreateFromLooseShaders) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  std::string vSource =
+      "#version 330\n"
+      "layout (location = 0) in vec3 aPos;\n"
+      "out vec4 vertexColor;\n"
+      "void main() {\n"
+      "gl_Position = vec4(aPos, 1.0);\n"
+      "vertexColor = vec4(0.5,0.0,0.0,1.0);\n}";
+
+  std::string fSource =
+      "#version 330\n"
+      "out vec4 FragColor;\n"
+      ""
+      "in vec4 vertexColor;\n"
+      ""
+      "void main(){\n"
+      "FragColor = vertexColor;}";
+
+  nzl::Shader shader1 = nzl::Shader(nzl::Shader::Stage::Vertex, vSource);
+  nzl::Shader shader2 = nzl::Shader(nzl::Shader::Stage::Fragment, fSource);
+
+  ASSERT_NO_THROW(nzl::Program program; program.add_shader(shader1);
+                  program.add_shader(shader2); program.compile());
+
+  nzl::terminate();
+}
+
+TEST(Program, EmplaceShaders) {
+  nzl::initialize();
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  std::string vSource =
+      "#version 330\n"
+      "layout (location = 0) in vec3 aPos;\n"
+      "out vec4 vertexColor;\n"
+      "void main() {\n"
+      "gl_Position = vec4(aPos, 1.0);\n"
+      "vertexColor = vec4(0.5,0.0,0.0,1.0);\n}";
+
+  std::string fSource =
+      "#version 330\n"
+      "out vec4 FragColor;\n"
+      ""
+      "in vec4 vertexColor;\n"
+      ""
+      "void main(){\n"
+      "FragColor = vertexColor;}";
+
+  ASSERT_NO_THROW(nzl::Program program;
+                  program.emplace_shader(nzl::Shader::Stage::Vertex, vSource);
+                  program.emplace_shader(nzl::Shader::Stage::Fragment, fSource);
+                  program.compile());
+
+  nzl::terminate();
+}
+
 TEST(Program, CopyConstructor) {
   nzl::initialize();
   nzl::Window win(800, 600, "Invisible Window");

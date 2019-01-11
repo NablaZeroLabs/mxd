@@ -28,17 +28,12 @@
 namespace {  // anonymous namespace
 
 const std::string vertex_shader_source =
-    nzl::slurp(nzl::get_env_var("SHADERS_PATH") + "/simple_shader.vert");
+    nzl::slurp(nzl::get_env_var("MXD_SHADER_ROOT") + "/simple_shader.vert");
 
 const std::string fragment_shader_source =
-    nzl::slurp(nzl::get_env_var("SHADERS_PATH") + "/simple_shader.frag");
+    nzl::slurp(nzl::get_env_var("MXD_SHADER_ROOT") + "/simple_shader.frag");
 
-/// @TODO This is too ugly. Program needs a full refactoring.
 auto make_program() {
-  /// @TODO The Shader/Program interface feels very awkward. For instance: why
-  /// do I need to pass a vector of shaders? Why do I need to compile the
-  /// shaders and then compile the program? Shouldn't the program compile the
-  /// shaders if it needs to? What happens if I forget to compile the shader?
   std::vector<nzl::Shader> shaders;
   shaders.emplace_back(nzl::Shader::Stage::Vertex, vertex_shader_source);
   shaders.emplace_back(nzl::Shader::Stage::Fragment, fragment_shader_source);
@@ -58,8 +53,8 @@ namespace nzl {
 /// Put all you need in the Implementation.
 struct nzl::Line::LineImp {
   LineImp();
-  ~LineImp() noexcept;
-  nzl::Program program;  /// @TODO Why not provide a default constructor?
+  ~LineImp();
+  nzl::Program program;
   unsigned int vao_id;
   unsigned int vbo_id;
   int number_of_points{0};
@@ -69,8 +64,6 @@ struct nzl::Line::LineImp {
 };
 
 nzl::Line::LineImp::LineImp() : program{make_program()} {
-  /// @TODO Add error checking! 10 minutes spent adding good error checking and
-  /// error messages will save you 10 hours debugging the program in the future.
   glGenVertexArrays(1, &vao_id);
   glBindVertexArray(vao_id);
   glGenBuffers(1, &vbo_id);
@@ -81,12 +74,13 @@ nzl::Line::LineImp::LineImp() : program{make_program()} {
   glDisableVertexAttribArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
-}
 
-nzl::Line::LineImp::~LineImp() noexcept {
-  /// @TODO: Add error checking!
+  nzl::check_gl_errors();
+}
+nzl::Line::LineImp::~LineImp() {
   glDeleteVertexArrays(1, &vao_id);
   glDeleteBuffers(1, &vbo_id);
+  nzl::check_gl_errors();
 }
 
 void nzl::Line::LineImp::load_points(glm::vec3 points[], int size) {
@@ -95,6 +89,7 @@ void nzl::Line::LineImp::load_points(glm::vec3 points[], int size) {
   glBufferData(GL_ARRAY_BUFFER, size * 3 * sizeof(float), points,
                GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
+  nzl::check_gl_errors();
 }
 
 // -----------------------------------------------------------------------------
@@ -111,11 +106,11 @@ Line::Line(glm::vec3 color, std::vector<glm::vec3>& points) : Line(color) {
   load_points(points);
 }
 
-void Line::load_points(std::vector<glm::vec3>& points) noexcept {
+void Line::load_points(std::vector<glm::vec3>& points) {
   m_pimpl->load_points(points.data(), points.size());
 }
 
-void Line::load_points(glm::vec3 points[], int size) noexcept {
+void Line::load_points(glm::vec3 points[], int size) {
   m_pimpl->load_points(points, size);
 }
 
@@ -134,12 +129,13 @@ void Line::do_render(TimePoint t [[maybe_unused]]) {
   program.use();
   program.set("color", m_pimpl->color);
 
-  /// @TODO Add error checking!
   glBindVertexArray(m_pimpl->vao_id);
   glEnableVertexAttribArray(0);
   glDrawArrays(GL_LINE_STRIP, 0, m_pimpl->number_of_points);
   glDisableVertexAttribArray(0);
   glBindVertexArray(0);
+
+  nzl::check_gl_errors();
 }
 
 }  // namespace nzl
