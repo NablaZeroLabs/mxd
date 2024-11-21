@@ -107,39 +107,36 @@ of *everything we have done*.
 
 **Pull Request Guidelines**
 
-1. Create a Pull Request (PR) to add modifications and wait until code review
-before merging (even if you have permission to merge in GitHub).
+Pull Request Guidelines
 
-2. Keep your changes small. Very small. It is way simpler to fix a small PR than
-it is to reject an entire, large PR because some tiny thing was wrong.  We don’t
-mind if we receive 20 PRs as long as we can check one by one without thinking
-too much.
+1. Submit for Review -- Open a Pull Request (PR) for all
+changes. Always await code review before merging, even if you have
+merge permissions.
 
-3. Add comments to the PRs in the Comment Section (briefly explain what problem
-you are trying to solve and why did you solve it the way you did). This is for
-our own amusement; it is to document our collective rationale.
+2. Keep it Small -- Small PRs are easier to review and fix. It's
+better to send 20 small PRs than a single large one likely to be
+rejected for minor issues.
 
-4. Send the first thing that works, or the first placeholder that makes sense,
-even if it has minimal or no implementation. Don’t wait until everything is
-perfect (incremental and small changes are a good thing).
+3. Provide Context -- Add a brief explanation in the PR comments: the
+problem you're solving and why you chose your approach. This documents
+our collective reasoning.
 
-5. Add unit tests for mostly everything. If you added a placeholder, add a
-failing test reminding you to add an implementation. This will allow us to run
-the tests and find out what we are missing.
+4. Iterate Incrementally -- Submit the first working version or a
+sensible placeholder. Don’t aim for perfection—small, iterative
+changes are ideal.
 
-6. Talk. If you don’t know how to do something, or are having trouble, open a
-conversation (Issue Section, with an appropriate label). Chances are that if you
-have trouble, someone else will also have trouble, and that conversation will
-help those people in the future. Good software is made by open and frank
-communication, and is never a competition on who is the smartest.
+5. Test Everything -- Include unit tests. For placeholders, add
+failing tests as reminders for implementation. Tests highlight gaps
+and ensure coverage.
 
-7. Do the obvious, not necessarily the most elegant or inspired solution. Simple
-code is good code. Clever code is bad code unless it is also simple. We can
-always improve on the obvious, but it is difficult to improve or maintain code
-that someone came up with during a flash of inspiration and then forgot how it
-happened.
+6. Communicate -- When stuck or unsure, start a discussion (via
+Issues, with appropriate labels). Collaboration solves problems faster
+and helps others facing similar challenges.
 
-8. Keep comments to a minimum. Write code in a way that it speaks for itself
-(e.g., good variable names, good function names, good flow, separate steps in
-separate lines, and so on). This does not mean you should not document your
-rationale or explain a tricky or non-obvious step; document those profusely.
+7. Favor Simplicity -- Prioritize obvious, straightforward solutions
+over clever or overly elegant ones. Simple code is easier to improve
+and maintain.
+
+8. Minimal Comments -- Write self-explanatory code with clear names
+and logical flow. Document non-obvious logic and rationale thoroughly,
+but avoid over-commenting.
