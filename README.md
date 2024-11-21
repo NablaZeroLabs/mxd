@@ -107,34 +107,34 @@ of *everything we have done*.
 
 **Pull Request Guidelines**
 
-1. *Submit for Review* &mdash; a Pull Request (PR) for all
+1. **Submit for Review** &mdash; Open a Pull Request (PR) for all
 changes. Always await code review before merging, even if you have
 merge permissions.
 
-2. *Keep it Small* &mdash; PRs are easier to review and fix. It's
-better to send 20 small PRs than a single large one likely to be
-rejected for minor issues.
+2. **Keep it Small** &mdash; Small PRs are easier to review and
+fix. It's better to send 20 small PRs than a single large one likely
+to be rejected for minor issues.
 
-3. *Provide Context* &mdash; a brief explanation in the PR comments:
-the problem you're solving and why you chose your approach. This
-documents our collective reasoning.
+3. **Provide Context** &mdash; Add a brief explanation in the PR
+comments: the problem you're solving and why you chose your
+approach. This documents our collective reasoning.
 
-4. *Iterate Incrementally* &mdash; the first working version or a
-sensible placeholder. Don’t aim for perfection—small, iterative
+4. **Iterate Incrementally** &mdash; Submit the first working version
+or a sensible placeholder. Don’t aim for perfection—small, iterative
 changes are ideal.
 
-5. *Test Everything* &mdash; unit tests. For placeholders, add failing
-tests as reminders for implementation. Tests highlight gaps and ensure
-coverage.
+5. **Test Everything** &mdash; Include unit tests. For placeholders,
+add failing tests as reminders for implementation. Tests highlight
+gaps and ensure coverage.
 
-6. *Communicate* &mdash; stuck or unsure, start a discussion (via
-Issues, with appropriate labels). Collaboration solves problems faster
-and helps others facing similar challenges.
+6. **Communicate** &mdash; When stuck or unsure, start a discussion
+(via Issues, with appropriate labels). Collaboration solves problems
+faster and helps others facing similar challenges.
 
-7. *Favor Simplicity* &mdash; obvious, straightforward solutions over
-clever or overly elegant ones. Simple code is easier to improve and
-maintain.
+7. **Favor Simplicity** &mdash; Prioritize obvious, straightforward
+solutions over clever or overly elegant ones. Simple code is easier to
+improve and maintain.
 
-8. *Minimal Comments* &mdash; self-explanatory code with clear names
-and logical flow. Document non-obvious logic and rationale thoroughly,
-but avoid over-commenting.
+8. **Minimal Comments** &mdash; Write self-explanatory code with clear
+names and logical flow. Document non-obvious logic and rationale
+thoroughly, but avoid over-commenting.
