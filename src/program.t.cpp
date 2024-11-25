@@ -231,15 +231,15 @@ TEST(Program, 2FloatUniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, val1, val2););
 
+#ifndef __APPLE__
   float ret[2];
-
   glGetnUniformfv(program.id(),
                   glGetUniformLocation(program.id(), name.c_str()),
                   2 * sizeof(float), &ret[0]);
 
   EXPECT_FLOAT_EQ(ret[0], val1);
   EXPECT_FLOAT_EQ(ret[1], val2);
-
+#endif
   nzl::terminate();
 }
 
@@ -260,6 +260,7 @@ TEST(Program, 3FloatUniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, val1, val2, val3););
 
+#ifndef __APPLE__
   float ret[3];
 
   glGetnUniformfv(program.id(),
@@ -269,6 +270,7 @@ TEST(Program, 3FloatUniform) {
   EXPECT_FLOAT_EQ(ret[0], val1);
   EXPECT_FLOAT_EQ(ret[1], val2);
   EXPECT_FLOAT_EQ(ret[2], val3);
+#endif
 
   nzl::terminate();
 }
@@ -291,6 +293,7 @@ TEST(Program, 4FloatUniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, val1, val2, val3, val4););
 
+#ifndef __APPLE__
   float ret[4];
 
   glGetnUniformfv(program.id(),
@@ -301,6 +304,7 @@ TEST(Program, 4FloatUniform) {
   EXPECT_FLOAT_EQ(ret[1], val2);
   EXPECT_FLOAT_EQ(ret[2], val3);
   EXPECT_FLOAT_EQ(ret[3], val4);
+#endif
 
   nzl::terminate();
 }
@@ -320,6 +324,7 @@ TEST(Program, Vec2Uniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, value););
 
+#ifndef __APPLE__
   glm::vec2 ret;
 
   glGetnUniformfv(program.id(),
@@ -328,6 +333,7 @@ TEST(Program, Vec2Uniform) {
 
   EXPECT_FLOAT_EQ(ret[0], value.x);
   EXPECT_FLOAT_EQ(ret[1], value.y);
+#endif
 
   nzl::terminate();
 }
@@ -347,6 +353,7 @@ TEST(Program, Vec3Uniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, value););
 
+#ifndef __APPLE__
   glm::vec3 ret;
 
   glGetnUniformfv(program.id(),
@@ -356,6 +363,7 @@ TEST(Program, Vec3Uniform) {
   EXPECT_FLOAT_EQ(ret.x, value.x);
   EXPECT_FLOAT_EQ(ret.y, value.y);
   EXPECT_FLOAT_EQ(ret.z, value.z);
+#endif
 
   nzl::terminate();
 }
@@ -375,6 +383,7 @@ TEST(Program, Vec4Uniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, value););
 
+#ifndef __APPLE__
   glm::vec4 ret;
 
   glGetnUniformfv(program.id(),
@@ -385,6 +394,7 @@ TEST(Program, Vec4Uniform) {
   EXPECT_FLOAT_EQ(ret.y, value.y);
   EXPECT_FLOAT_EQ(ret.z, value.z);
   EXPECT_FLOAT_EQ(ret.w, value.w);
+#endif
 
   nzl::terminate();
 }
@@ -404,6 +414,7 @@ TEST(Program, Mat2Uniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, value););
 
+#ifndef __APPLE__
   glm::mat2 ret;
 
   glGetnUniformfv(program.id(),
@@ -417,6 +428,7 @@ TEST(Program, Mat2Uniform) {
   }
 
   EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+#endif
 
   nzl::terminate();
 }
@@ -437,6 +449,7 @@ TEST(Program, Mat3Uniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, value););
 
+#ifndef __APPLE__
   glm::mat3 ret;
 
   glGetnUniformfv(program.id(),
@@ -450,6 +463,7 @@ TEST(Program, Mat3Uniform) {
   }
 
   EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+#endif
 
   nzl::terminate();
 }
@@ -471,6 +485,7 @@ TEST(Program, Mat4Uniform) {
   program.use();
   ASSERT_NO_THROW(program.set(name, value););
 
+#ifndef __APPLE__
   glm::mat4 ret;
 
   glGetnUniformfv(program.id(),
@@ -484,6 +499,7 @@ TEST(Program, Mat4Uniform) {
   }
 
   EXPECT_FLOAT_EQ(ret[0][0], 123.312f);
+#endif
 
   nzl::terminate();
 }
