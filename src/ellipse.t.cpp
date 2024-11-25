@@ -37,6 +37,12 @@ TEST(Ellipse, ConstructorAndParameterAccess) {
   EXPECT_FLOAT_EQ(ellipse.color().y, 0.0f);
   EXPECT_FLOAT_EQ(ellipse.color().z, 0.0f);
 
+  ellipse.set_color(glm::vec3(0.4f, 0.3f, 0.1f));
+
+  EXPECT_FLOAT_EQ(ellipse.color().x, 0.4f);
+  EXPECT_FLOAT_EQ(ellipse.color().y, 0.3f);
+  EXPECT_FLOAT_EQ(ellipse.color().z, 0.1f);
+
   EXPECT_NE(ellipse.get_program().id(), 0);
 
   EXPECT_EQ(glGetError(), 0);

@@ -47,9 +47,14 @@ auto create_program() {
   nzl::requires_current_context();
 
   if (auto id = glCreateProgram(); id == 0) {
-    /// @TODO: Add a more extensive error message.
     std::ostringstream oss;
-    oss << "Error creating Program object";
+    oss << "Error creating Program object: ";
+
+    if (glfwGetCurrentContext() == nullptr) {
+      oss << "OpenGL context non-existent";
+    } else {
+      oss << "Unknown error";
+    }
     throw std::runtime_error(oss.str());
   } else {
     return id;
@@ -118,6 +123,10 @@ unsigned int Program::id() const noexcept { return m_id_container->m_id; }
 void Program::use() const noexcept { glUseProgram(m_id_container->m_id); }
 
 void Program::add_shader(nzl::Shader& shader) { m_shaders.push_back(shader); }
+
+void Program::emplace_shader(nzl::Shader::Stage stage, std::string source) {
+  m_shaders.emplace_back(stage, source);
+}
 
 void Program::set(const std::string& name, bool value) const {
   glUniform1i(m_id_container->find_uniform_location(name), (int)value);

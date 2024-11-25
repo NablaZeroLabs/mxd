@@ -27,27 +27,32 @@ namespace nzl {
 class Line : public Geometry {
  public:
   /// @brief Creates line with white color.
+  /// @throws std::runtime_error if an OpenGL error is found.
   Line();
 
   /// @brief Creates line.
   /// @param color Line color.
+  /// @throws std::runtime_error if an OpenGL error is found.
   Line(glm::vec3 color);
 
   /// @brief Creates line and loads points onto line.
   /// @param color Line color.
   /// @param points Points to be loaded into the VBO.
+  /// @throws std::runtime_error if an OpenGL error is found.
   Line(glm::vec3 color, std::vector<glm::vec3>& points);
 
   /// @brief Loads points into the line's VBO.
   /// @param points Points to be loaded into the VBO.
+  /// @throws std::runtime_error if an OpenGL error is found.
   /// @note Affects all copies of this object.
-  void load_points(std::vector<glm::vec3>& points) noexcept;
+  void load_points(std::vector<glm::vec3>& points);
 
   /// @brief Loads points into the line's VBO.
   /// @param points Points to be loaded into the VBO.
   /// @param size Size of the array.
+  /// @throws std::runtime_error if an OpenGL error is found.
   /// @note Affects all copies of this object.
-  void load_points(glm::vec3 points[], int size) noexcept;
+  void load_points(glm::vec3 points[], int size);
 
   /// @brief Returns the line's color.
   glm::vec3 color() const noexcept;

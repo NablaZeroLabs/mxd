@@ -44,6 +44,12 @@ class Program {
   /// @param shader Shader to be added
   void add_shader(nzl::Shader& shader);
 
+  /// @brief Creates a @link Shader@endlink directly in the program's vector.
+  /// @param stage Stage in the rendering pipeline.
+  /// @param source Source code for the shader
+  void emplace_shader(nzl::Shader::Stage stage, std::string source);
+
+		      
   /// @brief Sets a boolean uniform within the Program.
   /// @throws std::runtime_error when uniform not found
   /// @param name Name of the uniform

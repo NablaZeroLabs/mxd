@@ -55,9 +55,13 @@ auto create_shader(nzl::Shader::Stage stage) {
         << ") passed as Shader::Stage";
     throw std::runtime_error(oss.str());
   } else if (id == 0) {
-    /// @TODO: Add a more extensive error message.
     std::ostringstream oss;
-    oss << "Error creating Shader object";
+    oss << "Error creating Shader object: ";
+    if (glfwGetCurrentContext() == nullptr) {
+      oss << "OpenGL context non-existent";
+    } else {
+      oss << "Unknown error";
+    }
     throw std::runtime_error(oss.str());
   } else {
     return id;

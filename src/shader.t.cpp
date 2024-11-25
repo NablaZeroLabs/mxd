@@ -31,8 +31,10 @@ TEST(Shader, ParameterAccessAndCompilation) {
 
   EXPECT_EQ(shader.stage(), stage);
   EXPECT_EQ(shader.source(), source);
+  EXPECT_EQ(shader.is_compiled(), false);
   EXPECT_NO_THROW(shader.compile());
   EXPECT_NE(shader.id(), 0u);
+  EXPECT_EQ(shader.is_compiled(), true);
 
   // Now try having an obiously wrong shader. In this case, the source will be
   // missing a semicolon after the `x`.

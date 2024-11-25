@@ -151,6 +151,7 @@ int Window::height() const noexcept { return m_pimpl->height; }
 
 const std::string& Window::title() const noexcept { return m_pimpl->title; }
 
+// @TODO Implement close method
 void Window::close() {}
 
 void Window::swap_buffers() { return m_pimpl->swap_buffers(); }
